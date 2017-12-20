@@ -48,3 +48,11 @@ html, body {
 .m-b-md {
     margin-bottom: 30px;
 }
+
+.h1 {
+    align: center;
+    font-size:50px;
+    width: 50%;
+    height: 20%;
+    margin: 5px 5px 5px 5px;
+}
