@@ -1,14 +1,14 @@
 html, body {
     background-color: #fff;
-    color: #636b6f;
+    color: gray();
     font-family: 'Raleway', sans-serif;
     font-weight: 100;
-    height: 100vh;
+    height: auto;
     margin: 0;
 }
 
 .full-height {
-    height: 100vh;
+    height: auto;
 }
 
 .flex-center {
@@ -29,13 +29,17 @@ html, body {
 
 .content {
     text-align: center;
+    padding: 20vh;
+    font-weight: 400;
 }
 
-.title {
+.title a, .title a:visited {
     font-size: 68px;
+    text-decoration: none;
+    color: #636b6f;
 }
 
-.links > a {
+.links > a, .links a:visited {
     color: #636b6f;
     padding: 0 25px;
     font-size: 12px;
@@ -69,6 +73,12 @@ html, body {
     margin: 5px 5px 5px 5px;
 }
 
-href {
-
+.textStuff {
+    width: 60vh;
+    height: auto;
+    background: lightblue;
+    padding: 5px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
 }

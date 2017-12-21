@@ -12,12 +12,12 @@
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
     </head>
-    <body  style="background: lightgray">
-        <div class="flex-center position-ref full-height">
+    <body  style="background: lightgray; ">
+        <div class="flex-center position-ref" style="height: 100vh">
 
             <div class="content">
                 <div class="title m-b-md">
-                    Uilymmot
+                    <a href="/">Uilymmot</a>
                 </div>
 
                 <div class="wrap1">
