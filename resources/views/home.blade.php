@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="links">
-                    <a href="https://github.com/uilymmot">GitHub</a>
+                    <a target="_blank" href="https://github.com/uilymmot">GitHub</a>
                 </div>
 
                 <div class="links">

@@ -29,7 +29,7 @@ html, body {
 
 .content {
     text-align: center;
-    padding: 20vh;
+    padding: 20.5vh;
     font-weight: 400;
 }
 
@@ -99,11 +99,9 @@ html, body {
 }
 
 .itm1 {
-    width: auto;
+    width: 451px;
     height: auto;
     align-content: center;
     vertical-align: center;
-    padding: 3px;
-    padding-left: 10vh;
-    padding-right: 10vh;
+    padding: 5px;
 }

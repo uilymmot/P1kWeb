@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="flex-center position-ref full-height" style="vertical-align: top; display: block; ">
+    <div class="flex-center position-ref full-height" style="vertical-align: top; display: block; height: 100vh">
 
         <div class="content">
             <div class="title m-b-md">
@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="links">
-                    <a href="https://github.com/uilymmot">GitHub</a>
+                    <a target="_blank" href="https://github.com/uilymmot">GitHub</a>
                 </div>
 
                 <div class="links">
@@ -26,15 +26,19 @@
                 </div>
             </div>
 
-            <div class="content">
+            <div class="content" style="margin-top: -10%; width: auto">
                 <div class="ctr2">
-                    <div class="itm1" style="float: left">Project1</div>
-                    <div class="itm1" style="float: right;">Project1</div>
+                    <div class="itm1" style="float: left; background-color: lightcoral;">Project1<br/>
+                    A small project to ipsum delorae</div>
+                    <div class="itm1" style="float: right; background-color: lightgreen;">Project1 <br/>
+                    A small project to do stuff</div>
                 </div>
 
                 <div class="ctr2">
-                    <div class="itm1" style="float: left">Project1</div>
-                    <div class="itm1" style="float: right;">Project1</div>
+                    <div class="itm1" style="float: left; background-color: lightgoldenrodyellow">Project1<br/>
+                    blah blah blah blah blah</div>
+                    <div class="itm1" style="float: right; background-color: lightsalmon">Project1<br/>
+                    dsadsaoinoivnoigenoinvoinoi</div>
                 </div>
             </div>
         </div>
