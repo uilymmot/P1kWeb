@@ -27,19 +27,16 @@
             </div>
 
             <div class="content" style="margin-top: -10%; width: auto">
-                <div class="ctr2">
-                    <div class="itm1" style="float: left; background-color: lightcoral;">Project1<br/>
-                    A small project to ipsum delorae</div>
-                    <div class="itm1" style="float: right; background-color: lightgreen;">Project1 <br/>
-                    A small project to do stuff</div>
-                </div>
+                @if(count($posts)>0)
+                    @foreach($posts as $post)
+                        <div class="well">
+                            <h3>{{$post->title}}</h3>
+                        </div>
+                    @endforeach
 
-                <div class="ctr2">
-                    <div class="itm1" style="float: left; background-color: lightgoldenrodyellow">Project1<br/>
-                    blah blah blah blah blah</div>
-                    <div class="itm1" style="float: right; background-color: lightsalmon">Project1<br/>
-                    dsadsaoinoivnoigenoinvoinoi</div>
-                </div>
+                @else
+                    <p>no posts found</p>
+                @endif
             </div>
         </div>
 
