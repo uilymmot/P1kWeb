@@ -82,3 +82,28 @@ html, body {
     display: flex;
     justify-content: center;
 }
+
+.ctr1 {
+    width: 50vh;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.ctr2 {
+    width: auto;
+    height: auto;
+    padding: 5px;
+    border: 1px;
+    border-color: black;
+}
+
+.itm1 {
+    width: auto;
+    height: auto;
+    align-content: center;
+    vertical-align: center;
+    padding: 3px;
+    padding-left: 10vh;
+    padding-right: 10vh;
+}
