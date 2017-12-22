@@ -19,6 +19,10 @@ class PagesController extends Controller
     }
 
     public function projects() {
+        return view('pages.projects');
+    }
+
+    public function posts() {
         return view('posts.index');
     }
 }

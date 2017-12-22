@@ -14,7 +14,7 @@
             </div>
 
             <div class="links">
-                <a href="projects">Projects</a>
+                <a href="posts">Projects</a>
             </div>
 
             <div class="links">

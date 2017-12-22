@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="flex-center position-ref" style="height: 100vh">
+    <div class="flex-center position-ref full-height" style="vertical-align: top; display: block; height: 100vh">
 
         <div class="content">
             <div class="title m-b-md">
@@ -25,6 +25,11 @@
                     <a href="page1">Random Rest of website</a>
                 </div>
             </div>
+
+            <div class="content" style="margin-top: -10%; width: auto">
+
+            </div>
         </div>
+
     </div>
 @endsection
