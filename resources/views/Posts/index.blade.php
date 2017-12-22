@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="flex-center position-ref full-height" style="vertical-align: top; display: block; height: 100vh">
+    <div class="flex-center position-ref full-height" style="vertical-align: top; display: block;">
 
         <div class="content">
             <div class="title m-b-md">
@@ -14,7 +14,7 @@
                 </div>
 
                 <div class="links">
-                    <a href="projects">Projects</a>
+                    <a href="posts">Projects</a>
                 </div>
 
                 <div class="links">
@@ -31,6 +31,9 @@
                     @foreach($posts as $post)
                         <div class="well">
                             <h3>{{$post->title}}</h3>
+                            <p style="color: black; font-size: 13px; font-family: Verdana; opacity: 50;">
+                               {{$post->description}}
+                            </p>
                         </div>
                     @endforeach
 
