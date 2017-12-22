@@ -26,11 +26,11 @@
                 </div>
             </div>
 
-            <div class="content" style="margin-top: -10%; width: auto">
+            <div class="content" style="margin-top: -10%;">
                 @if(count($posts)>0)
                     @foreach($posts as $post)
                         <div class="well">
-                            <h3>{{$post->title}}</h3>
+                            <h3><a href="/posts/{{$post->id}}">{{$post->title}}</a></h3>
                             <p style="color: black; font-size: 13px; font-family: Verdana; opacity: 50;">
                                {{$post->description}}
                             </p>
