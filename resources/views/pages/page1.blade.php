@@ -15,7 +15,25 @@
         <div class="h1"><?php
             echo 'page opened on: ' . date('m/d/Y h:i:s a', time());
             ?></div>
-    </div>
 
+        <?php
+            if (!empty($_GET['act'])) {
+                $val = mt_rand(0, 1);
+                if ($val = 1) {
+                    echo 'heads';
+                }
+                else {
+                    echo 'tails';
+                }
+             }
+             else {
+                ?>
+                <form action="index.php" method="get">
+                    <input type="hidden" name="act" value="run">
+                    <input type="submit" value="flip">
+        <?php
+             }
+        ?>
+    </div>
 </body>
 </html>
