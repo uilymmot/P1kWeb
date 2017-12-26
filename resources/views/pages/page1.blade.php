@@ -7,33 +7,26 @@
     <link type="text/css" rel="stylesheet"
           href="{{asset('css/startPage.css')}}">
     <meta charset="UTF-8">
+    <script type="text/javascript">
+        function flip() {
+            var rand = Math.random();
+
+            if (rand > 0.5) alert("Heads");
+            else alert('Tails');
+        }
+    </script>
+
     <title> Page 1</title>
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <div class="flex-center position-ref full-height">
-        <div class="h1"><?php
-            echo 'page opened on: ' . date('m/d/Y h:i:s a', time());
-            ?></div>
+<div class="flex-center position-ref full-height">
+    <div class="h1"><?php
+        echo 'page opened on: ' . date('m/d/Y h:i:s a', time());
+        ?></div>
 
-        <?php
-            if (!empty($_GET['act'])) {
-                $val = mt_rand(0, 1);
-                if ($val = 1) {
-                    echo 'heads';
-                }
-                else {
-                    echo 'tails';
-                }
-             }
-             else {
-                ?>
-                <form action="index.php" method="get">
-                    <input type="hidden" name="act" value="run">
-                    <input type="submit" value="flip">
-        <?php
-             }
-        ?>
-    </div>
+    <button type="button" onclick="flip()" autofocus="autofocus">Flip</button>
+
+</div>
 </body>
 </html>
