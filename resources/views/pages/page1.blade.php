@@ -45,6 +45,9 @@
         <br/><br/><br/>
 
         Get Random Number between: <input name="textbox1" id="textbox1" type="number"> and <input name="textbox2" id="textbox2" type="number">. <button type="button" onclick="getRandomVal()"> get number</button>
+
+
+
     </div>
 
 
