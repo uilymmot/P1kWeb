@@ -10,7 +10,6 @@
     <script type="text/javascript">
         function flipCoin() {
             var rand = Math.random();
-
             if (rand > 0.5) alert("Heads");
             else alert('Tails');
         }
@@ -26,6 +25,7 @@
             var ranOut = Math.round(ranVal * (maxVal - minVal));
             alert(ranOut+1);
         }
+
     </script>
 
     <title> Page 1</title>
@@ -46,11 +46,7 @@
 
         Get Random Number between: <input name="textbox1" id="textbox1" type="number"> and <input name="textbox2" id="textbox2" type="number">. <button type="button" onclick="getRandomVal()"> get number</button>
 
-
-
     </div>
-
-
 </div>
 </body>
 </html>
