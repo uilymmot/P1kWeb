@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css" rel="stylesheet"
           href="{{ asset('css/startPage.css') }}">
+    <script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
+
     <title>Uilymmot</title>
 
 </head>
@@ -29,7 +31,10 @@
     <div class="content">
         @yield('content')
     </div>
-</div>
 
+    <div class="content">
+        @yield('bod')
+    </div>
+</div>
 </body>
 </html>

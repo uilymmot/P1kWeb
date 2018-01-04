@@ -1,5 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-TODO: Write this stuff later too
+<p>This is the home page!</p>
 @endsection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
