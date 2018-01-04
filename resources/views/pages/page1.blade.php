@@ -16,5 +16,7 @@
 @endsection
 
 @section('bod')
-    <canvas class="snakes" id="snakes-canvas"></canvas>
+    <div class="content">
+        <canvas class="snakes" id="snakes-canvas"></canvas>
+    </div>
 @endsection

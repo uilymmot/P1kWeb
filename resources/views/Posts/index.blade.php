@@ -5,7 +5,7 @@
                     @foreach($posts as $post)
                         <div class="well">
                             <h3><a href="/posts/{{$post->id}}">{{$post->title}}</a></h3>
-                            <p style="color: black; font-size: 13px; font-family: Verdana; opacity: 50;">
+                            <p>
                                {{$post->description}}
                             </p>
                         </div>

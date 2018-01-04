@@ -20,10 +20,18 @@
         </div>
 
         <div class="links">
-            <a href="about" >About</a> |
-            <a href="posts">Projects</a> |
-            <a target="_blank" href="https://github.com/uilymmot">GitHub</a> |
-            <a href="page1">Random Rest of website</a>
+            <div class="links-c">
+                <a href="about" >About</a>
+            </div>
+            <div class="links-c">
+                <a href="posts">Projects</a>
+            </div>
+            <div class="links-c">
+                <a target="_blank" href="https://github.com/uilymmot">GitHub</a>
+            </div>
+            <div class="links-c">
+                <a href="page1">Random Rest of website</a>
+            </div>
         </div>
 
     </div>
@@ -32,9 +40,8 @@
         @yield('content')
     </div>
 
-    <div class="content">
-        @yield('bod')
-    </div>
+
+    @yield('bod')
 </div>
 </body>
 </html>
