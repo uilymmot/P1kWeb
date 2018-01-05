@@ -26,7 +26,7 @@
                 </div>
             </div>
 
-            <div class="content" style="margin-top: -10%; width: auto">
+            <div class="content">
 
             </div>
         </div>
