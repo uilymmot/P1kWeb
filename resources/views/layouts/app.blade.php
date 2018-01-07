@@ -24,7 +24,7 @@
                 <a href="about" >About</a>
             </div>
             <div class="links-c">
-                <a href="posts">Projects</a>
+                <a href="projects">Projects</a>
             </div>
             <div class="links-c">
                 <a target="_blank" href="https://github.com/uilymmot">GitHub</a>

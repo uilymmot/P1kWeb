@@ -22,6 +22,7 @@ html, body {
 .wrapper div {
     justify-content: center;
     text-align: center;
+    border: 1px solid black;
 }
 
 .header {
@@ -103,4 +104,13 @@ canvas {
 .projectitem p {
     font-size: 13px;
     font-family: Verdana0, sans-serif;
+}
+
+.dell-wrap {
+    display: flex;
+    flex-direction: column;
+}
+
+.dell {
+    margin-bottom: 10px;
 }
