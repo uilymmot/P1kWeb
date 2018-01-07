@@ -13,10 +13,4 @@
 @endsection
 
 @section('bod')
-    <br/>
-    <br/>
-    <br/>
-    <div class="wrap1">
-        <canvas class="snakes" id="snakesC" onclick="gameOver()"></canvas>
-    </div>
 @endsection
