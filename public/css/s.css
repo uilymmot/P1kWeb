@@ -1,45 +1,35 @@
-$background: #d9dbdd;
-$links-color: #124930;
-
 html, body {
   background: lightgray;
   font-family: 'Raleway', sans-serif;
   font-weight: 100;
   height: auto;
-  margin: 0;
-}
+  margin: 0; }
 
 .wrapper {
   flex: content;
   width: 100%;
   flex-direction: column;
   display: flex;
-  justify-content: center;
-}
+  justify-content: center; }
 
 .wrapper a, a:visited {
   text-decoration: none;
-  color: black;
-}
+  color: black; }
 
 .wrapper div {
   justify-content: center;
-  text-align: center;
-}
+  text-align: center; }
 
 .header {
-  margin-bottom: 5px;
-}
+  margin-bottom: 5px; }
 
 .footer {
   font-size: 9px;
   color: #0d3625;
-  margin-top: 33px;
-}
+  margin-top: 33px; }
 
 .title {
-  padding: 2px;
-}
+  padding: 2px; }
 
 .links {
   display: flex;
@@ -49,48 +39,35 @@ html, body {
   margin-bottom: 15px;
   border-top: 1px solid lightgoldenrodyellow;
   border-bottom: 1px solid lightgoldenrodyellow;
-  padding: 1px;
-
-  .links-c {
+  padding: 1px; }
+  .links .links-c {
     padding: 8px;
     flex-basis: 100px;
     display: flex;
     justify-content: center;
     flex-direction: column;
-    text-align: center;
-  }
-
-  .links-c a, a:visited {
-    color: $links-color;
+    text-align: center; }
+  .links .links-c a, .links a:visited {
+    color: #124930;
     text-decoration: none;
-    font-size: 12px;
-  }
-
-  .links-c a:hover {
+    font-size: 12px; }
+  .links .links-c a:hover {
     color: deeppink;
-    font-size: 12px;
-  }
-
-}
+    font-size: 12px; }
 
 .links-c a:active {
   color: red;
-  font-size: 13px;
-}
+  font-size: 13px; }
 
 .content {
   flex-direction: row;
   flex-wrap: wrap;
   display: inline;
-  justify-content: flex-start;
-}
+  justify-content: flex-start; }
 
 @media (min-width: 768px) {
   .content {
-    display: flex;
-  }
-}
-
+    display: flex; } }
 @media (min-width: 150px) {
   .projectitem {
     padding: 10px;
@@ -99,38 +76,31 @@ html, body {
     border-radius: 1px;
     box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.05);
     flex-basis: 27%;
-    margin: 5px;
-  }
+    margin: 5px; }
 
   .invisibleProjectItem {
     padding: 10px;
-    border: 2px solid $background;
+    border: 2px solid #d9dbdd;
     border-radius: 1px;
     flex-basis: 27%;
-    margin: 5px;
-  }
-}
-
+    margin: 5px; } }
 canvas {
   border: 1px solid #000000;
-  flex-basis: 500px;
-}
+  flex-basis: 500px; }
 
 .projectitem h3 {
   font-size: 15px;
-  font-kerning: auto;
-}
+  font-kerning: auto; }
 
 .projectitem p {
   font-size: 13px;
-  font-family: Verdana, sans-serif;
-}
+  font-family: Verdana, sans-serif; }
 
 .dell-wrap {
   display: flex;
-  flex-direction: column;
-}
+  flex-direction: column; }
 
 .dell {
-  margin-bottom: 10px;
-}
+  margin-bottom: 10px; }
+
+/*# sourceMappingURL=s.css.map */
