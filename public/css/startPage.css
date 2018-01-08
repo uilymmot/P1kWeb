@@ -56,6 +56,8 @@ html, body {
     justify-content: center;
     flex-direction: column;
     text-align: center;
+    margin-top: 1px;
+    margin-bottom: 1px;
 }
 
 .links-c a {

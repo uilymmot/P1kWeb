@@ -45,7 +45,7 @@
 
     <div class="footer">
         <p>Unlicensed 2018, Tommy Liu <br/>
-        All rights unreserved except where stuff lies under their respective licenses</p>
+        All rights unreserved except where stuff lies under some license somewhere</p>
     </div>
 </div>
 </body>

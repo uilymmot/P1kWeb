@@ -17,7 +17,6 @@
         <p>no projects found</p>
     @endif
 
-
     @while(true)
         @if ($count % 3 == 0)
             <?php break ?>
