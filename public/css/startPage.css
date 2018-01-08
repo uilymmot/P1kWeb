@@ -12,7 +12,6 @@ html, body {
     flex-direction: column;
     display: flex;
     justify-content: center;
-    min-height: 800px;
 }
 
 .wrapper a, a:visited {
