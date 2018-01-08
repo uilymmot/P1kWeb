@@ -46,6 +46,7 @@ html, body {
     margin-bottom: 15px;
     border-top: 1px solid lightgoldenrodyellow;
     border-bottom: 1px solid lightgoldenrodyellow;
+    padding: 1px;
 }
 
 .links-c {
@@ -55,8 +56,6 @@ html, body {
     justify-content: center;
     flex-direction: column;
     text-align: center;
-    margin-top: 1px;
-    margin-bottom: 1px;
 }
 
 .links-c a {
