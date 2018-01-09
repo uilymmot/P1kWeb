@@ -7,6 +7,7 @@
     <link type="text/css" rel="stylesheet"
           href="{{ asset('css/s.css') }}">
     <script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/brickBreaker.js') }}"></script>
 
     <title>Uilymmot</title>
 

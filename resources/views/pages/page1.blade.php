@@ -19,9 +19,15 @@
 @endsection
 
 @section('bod')
+    <div class="content-1">
+        <div class="canvas-div">
+            <canvas id="valCan">
+            </canvas>
+        </div>
 
-    <div class="canvas-div">
-        <canvas id="valCan">
-        </canvas>
+        <div class="canvas-div-1">
+            <canvas id="brickBreaker" onclick="playGame()">
+            </canvas>
+        </div>
     </div>
 @endsection

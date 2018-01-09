@@ -18,9 +18,9 @@ function getRandomVal() {
     var minVal = (document.getElementsByName('textbox1')[0].value);
     var maxVal = (document.getElementsByName('textbox2')[0].value);
     var ranVal = Math.random();
-    var ranOut = +Math.round((ranVal * ((maxVal - minVal)))) + +minVal;
+    var ranOut = Math.round((ranVal * ((maxVal - minVal)))) + +minVal;
     drawOnCan(ranOut);
-    alert(ranOut)
+    alert(ranOut);
 }
 
 function drawOnCan(num) {
@@ -32,3 +32,6 @@ function drawOnCan(num) {
     ctx.fillStyle = "#000000";
     ctx.fillText(num, +xPos, +yPos);
 }
+
+
+
