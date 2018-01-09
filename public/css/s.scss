@@ -2,7 +2,7 @@ $background: #d9dbdd;
 $links-color: #124930;
 
 html, body {
-  background: lightgray;
+  background: $background;
   font-family: 'Raleway', sans-serif;
   font-weight: 100;
   height: auto;
@@ -25,6 +25,7 @@ html, body {
 .wrapper div {
   justify-content: center;
   text-align: center;
+  border: 1px solid black;
 }
 
 .header {
@@ -38,7 +39,7 @@ html, body {
 }
 
 .title {
-  padding: 2px;
+  padding: 4px;
 }
 
 .links {
@@ -71,18 +72,20 @@ html, body {
     font-size: 12px;
   }
 
-}
+  .links-c a:active {
+    color: red;
+    font-size: 13px;
+  }
 
-.links-c a:active {
-  color: red;
-  font-size: 13px;
 }
 
 .content {
+  display: flex;
+  padding: 1px;
+  width: auto;
   flex-direction: row;
   flex-wrap: wrap;
-  display: inline;
-  justify-content: flex-start;
+  justify-content: space-between;
 }
 
 @media (min-width: 768px) {
@@ -133,4 +136,9 @@ canvas {
 
 .dell {
   margin-bottom: 10px;
+}
+
+.aboutItem {
+  background: blanchedalmond;
+  width: 30%;
 }

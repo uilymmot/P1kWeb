@@ -17,7 +17,6 @@
         <p>no projects found</p>
     @endif
 
-
     <!-- This is a flexbox hack, it would be a much better idea
          to use grid for the layout since it wouldn't require this hack
          but im too proud of this to get rid of it -->
@@ -28,4 +27,5 @@
         <div class="invisibleProjectItem"> </div>
         <?php $count++ ?>
     @endwhile
+
 @endsection

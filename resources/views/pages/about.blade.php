@@ -1,7 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-        <p style="color: black;">
-            TODO: Write this stuff later
-        </p>
+    <div class="aboutItem">
+        <p>1</p>
+    </div>
+    <div class="aboutItem">
+        <p>2</p>
+    </div>
+    <div class="aboutItem">
+        <p>3</p>
+    </div>
 @endsection
