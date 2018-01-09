@@ -44,8 +44,8 @@
     @yield('bod')
 
     <div class="footer">
-        <p>Unlicensed 2018, Tommy Liu <br/>
-        All rights unreserved except where stuff lies under some license somewhere</p>
+        <p>MIT License(c) 2018, Tommy Liu <br/>
+        All rights unreserved really.</p>
     </div>
 </div>
 </body>
