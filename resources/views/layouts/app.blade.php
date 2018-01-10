@@ -28,10 +28,10 @@
                 <a href="projects">Projects</a>
             </div>
             <div class="links-c">
-                <a target="_blank" href="https://github.com/uilymmot">GitHub</a>
+                <a href="page1">Misc Web Stuff</a>
             </div>
             <div class="links-c">
-                <a href="page1">Random Rest of website</a>
+                <a target="_blank" href="https://github.com/uilymmot">GitHub</a>
             </div>
         </div>
 

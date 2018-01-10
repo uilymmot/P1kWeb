@@ -1,5 +1,7 @@
 $background: #d9dbdd;
 $links-color: #124930;
+$item-background: #f5f5f5;
+$nav-bord: 1px solid lightgoldenrodyellow;
 
 html, body {
   background: $background;
@@ -25,7 +27,7 @@ html, body {
 .wrapper div {
   justify-content: center;
   text-align: center;
-  border: 1px solid black;
+
 }
 
 .header {
@@ -48,8 +50,8 @@ html, body {
   flex: content;
   flex-wrap: wrap;
   margin-bottom: 15px;
-  border-top: 1px solid lightgoldenrodyellow;
-  border-bottom: 1px solid lightgoldenrodyellow;
+  border-top: $nav-bord;
+  border-bottom: $nav-bord;
   padding: 3px;
 
   .links-c {
@@ -61,22 +63,15 @@ html, body {
     text-align: center;
   }
 
-  .links-c a, a:visited {
+  .links-c a, a:hover, a:visited {
     color: $links-color;
     text-decoration: none;
     font-size: 12px;
+    &:active {
+      color: red;
+      font-size: 13px;
+    }
   }
-
-  .links-c a:hover {
-    color: deeppink;
-    font-size: 12px;
-  }
-
-  .links-c a:active {
-    color: red;
-    font-size: 13px;
-  }
-
 }
 
 .content {
@@ -102,7 +97,7 @@ html, body {
 @media (min-width: 150px) {
   .projectitem {
     padding: 10px;
-    background-color: #f5f5f5;
+    background-color: $item-background;
     border: 2px solid #e3e3e3;
     border-radius: 8px;
     box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.05);
@@ -124,14 +119,16 @@ canvas {
   flex-basis: 500px;
 }
 
-.projectitem h3 {
-  font-size: 15px;
-  font-kerning: auto;
-}
+.projectitem {
+  h3 {
+    font-size: 15px;
+    font-kerning: auto;
+  }
 
-.projectitem p {
-  font-size: 13px;
-  font-family: Verdana, sans-serif;
+  p {
+    font-size: 13px;
+    font-family: Verdana, sans-serif;
+  }
 }
 
 .dell-wrap {
@@ -144,7 +141,9 @@ canvas {
 }
 
 .aboutItem {
-  background: blanchedalmond;
-  align-self: center;
-  flex-basis: 30%;
+  background: $item-background;
+  border-radius: 4px;
+  flex-basis: 45%;
+  margin: 5px;
 }
+

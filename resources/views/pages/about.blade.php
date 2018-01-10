@@ -7,7 +7,4 @@
     <div class="aboutItem">
         <p>2</p>
     </div>
-    <div class="aboutItem">
-        <p>3</p>
-    </div>
 @endsection
