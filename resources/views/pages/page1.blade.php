@@ -26,7 +26,7 @@
         </div>
 
         <div class="canvas-div-1">
-            <canvas id="brickBreaker" onclick="playGame()">
+            <canvas width="500px" height="500px" id="brickBreaker" onclick="playGame()">
             </canvas>
         </div>
     </div>

@@ -46,7 +46,7 @@
 
     <div class="footer">
         <p>MIT License(c) 2018, Tommy Liu <br/>
-        All rights unreserved really.</p>
+            All rights unreserved really.</p>
     </div>
 </div>
 </body>
