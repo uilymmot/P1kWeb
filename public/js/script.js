@@ -15,19 +15,19 @@ function home() {
 }
 
 function getRandomVal() {
-    var minVal = (document.getElementsByName('textbox1')[0].value);
-    var maxVal = (document.getElementsByName('textbox2')[0].value);
-    var ranVal = Math.random();
-    var ranOut = Math.round((ranVal * ((maxVal - minVal)))) + +minVal;
+    let minVal = (document.getElementsByName('textbox1')[0].value);
+    let maxVal = (document.getElementsByName('textbox2')[0].value);
+    let ranVal = Math.random();
+    let ranOut = Math.round((ranVal * ((maxVal - minVal)))) + +minVal;
     drawOnCan(ranOut);
     alert(ranOut);
 }
 
 function drawOnCan(num) {
-    var thing = document.getElementById("valCan");
-    var ctx = thing.getContext("2d");
-    var yPos = Math.round(Math.random() * document.getElementById("valCan").clientHeight);
-    var xPos = Math.round(Math.random() * document.getElementById("valCan").clientWidth);
+    let thing = document.getElementById("valCan");
+    let ctx = thing.getContext("2d");
+    let yPos = Math.round(Math.random() * document.getElementById("valCan").clientHeight);
+    let xPos = Math.round(Math.random() * document.getElementById("valCan").clientWidth);
     ctx.font = "18px Arial";
     ctx.fillStyle = "#000000";
     ctx.fillText(num, +xPos, +yPos);

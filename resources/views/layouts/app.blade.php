@@ -7,9 +7,9 @@
     <link type="text/css" rel="stylesheet"
           href="{{ asset('css/s.css') }}">
     <script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/brickBreaker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/snakes.js') }}"></script>
 
-    <title>Uilymmot</title>
+    <title>Tommy Liu</title>
 
 </head>
 <body>
@@ -17,7 +17,7 @@
     <div class="header">
 
         <div class="title">
-            <a href="/"><h1>Uilymmot</h1></a>
+            <a href="/"><h1>Tommy Liu</h1></a>
         </div>
 
         <div class="links">
@@ -28,7 +28,7 @@
                 <a href="projects">Projects</a>
             </div>
             <div class="links-c">
-                <a href="page1">Misc Web Stuff</a>
+                <a href="page1">Misc web stuff</a>
             </div>
             <div class="links-c">
                 <a target="_blank" href="https://github.com/uilymmot">GitHub</a>
