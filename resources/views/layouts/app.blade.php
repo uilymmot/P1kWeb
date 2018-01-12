@@ -31,6 +31,9 @@
                 <a href="page1">Misc web stuff</a>
             </div>
             <div class="links-c">
+                <a href="snakesPage">Snakes</a>
+            </div>
+            <div class="links-c">
                 <a target="_blank" href="https://github.com/uilymmot">GitHub</a>
             </div>
         </div>
@@ -40,7 +43,6 @@
     <div class="content">
         @yield('content')
     </div>
-
 
     @yield('bod')
 

@@ -24,10 +24,5 @@
             <canvas id="valCan">
             </canvas>
         </div>
-
-        <div class="canvas-div-1">
-            <canvas width="500%" height="500%" id="snakes-canvas" onclick="playGame()">
-            </canvas>
-        </div>
     </div>
 @endsection

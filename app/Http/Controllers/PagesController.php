@@ -25,4 +25,8 @@ class PagesController extends Controller
     public function posts() {
         return view('posts.index');
     }
+
+    public function snakesPage() {
+        return view('pages.snakesPage');
+    }
 }
