@@ -7,7 +7,8 @@
     <link type="text/css" rel="stylesheet"
           href="{{ asset('css/s.css') }}">
     <script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/snakes.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset('js/bricks.js') }}"></script>
 
     <title>Tommy Liu</title>
 
@@ -17,7 +18,7 @@
     <div class="header">
 
         <div class="title">
-            <a href="/"><h1>Tommy Liu</h1></a>
+            <a href="/"><h1>Uilymmot</h1></a>
         </div>
 
         <div class="links">
@@ -32,6 +33,9 @@
             </div>
             <div class="links-c">
                 <a href="snakesPage">Snakes</a>
+            </div>
+            <div class="links-c">
+                <a href="bricksPage">Brick Breaker</a>
             </div>
             <div class="links-c">
                 <a target="_blank" href="https://github.com/uilymmot">GitHub</a>

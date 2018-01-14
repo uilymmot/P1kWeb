@@ -2,9 +2,9 @@ let xVelocity = 1;
 let yVelocity = 0;
 let isRunning = false;
 //Iunno how to include these variables in the scope of playGame
-document.onkeydown = keyPush;
+document.onkeydown = keyPushS;
 
-function playGame() {
+function playSnakes() {
     if (!isRunning) {
         isRunning = true;
         let scalefact = 20;
@@ -119,7 +119,7 @@ function playGame() {
     }
 }
 
-function keyPush(key) {
+function keyPushS(key) {
     switch (key.keyCode) {
         case 37: // Left arrow
             if (xVelocity !==1) {
