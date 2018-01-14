@@ -11,6 +11,9 @@ function playBricks() {
     function BallObject() {
         this.xPos = 250;
         this.yPos = 250;
+        this.xVelocity = -(Math.random()*5);
+        this.yVelocity = -(Math.random()*5);
+        this.radiuss = 3;
     }
 
     function PaddlePbject() {
@@ -25,16 +28,37 @@ function playBricks() {
     ctx.fillStyle = "#000000";
     let bricksArr = [];
     newBricks();
+    let paddle = new PaddlePbject();
+    let ball = new BallObject();
 
-    bricksArr.splice(-5,4);
+    setInterval(pGame, 66.6);
 
-    for (let i = 0; i < bricksArr.length; i++) {
-        ctx.fillStyle = "#000000";
-        ctx.fillRect(bricksArr[i].xPos, bricksArr[i].yPos, brickX, brickY);
-        ctx.strokeStyle = "#00FF00";
-        ctx.rect(bricksArr[i].xPos, bricksArr[i].yPos, brickX, brickY);
+    function pGame() {
+        ctx.clearRect(0,0,canvas.height, canvas.width);
+
+        for (let i = 0; i < bricksArr.length; i++) {
+            ctx.fillStyle = "#000000";
+            ctx.fillRect(bricksArr[i].xPos, bricksArr[i].yPos, brickX, brickY);
+            ctx.strokeStyle = "#00FF00";
+            ctx.rect(bricksArr[i].xPos, bricksArr[i].yPos, brickX, brickY);
+            ctx.stroke();
+        }
+
+        ctx.fillStyle = "#FF0000";
+        ctx.strokeStyle = "#000000";
+        ctx.beginPath();
+        ctx.arc(ball.xPos, ball.yPos, ball.radiuss, Math.PI * 2, false);
+        ctx.fill();
         ctx.stroke();
+
+        ball.xPos += ball.xVelocity;
+        ball.yPos += ball.yVelocity;
+
+        ctx.fillStyle = "#FF00FF";
+        ctx.fillRect(xPositional, canvas.height - 8, canvas.height / 10, 2);
     }
+
+
 
     function newBricks() {
         bricksArr = [];
