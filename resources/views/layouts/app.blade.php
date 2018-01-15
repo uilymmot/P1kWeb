@@ -8,8 +8,6 @@
           href="{{ asset('css/s.css') }}">
     <script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
 
-    <script type="text/javascript" src="{{ asset('js/bricks.js') }}"></script>
-
     <title>Tommy Liu</title>
 
 </head>

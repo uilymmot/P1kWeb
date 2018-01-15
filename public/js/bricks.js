@@ -10,7 +10,7 @@ function playBricks() {
 
     function BallObject() {
         this.xPos = 250;
-        this.yPos = 250;
+        this.yPos = 450;
         this.xVelocity = -5;
         this.yVelocity = -5;
         this.radiuss = 3;
@@ -24,7 +24,7 @@ function playBricks() {
     let canvas = document.getElementById('brick-canvas');
     let ctx = canvas.getContext('2d');
     let brickWidth = Math.floor(canvas.width / 8);
-    let brichHeight = Math.floor(canvas.height / 16);
+    let brickHeight = Math.floor(canvas.height / 16);
 
     ctx.fillStyle = "#000000";
     let bricksArr = [];
@@ -39,9 +39,9 @@ function playBricks() {
 
         for (let i = 0; i < bricksArr.length; i++) {
             ctx.fillStyle = "#000000";
-            ctx.fillRect(bricksArr[i].xPos, bricksArr[i].yPos, brickWidth, brichHeight);
+            ctx.fillRect(bricksArr[i].xPos, bricksArr[i].yPos, brickWidth, brickHeight);
             ctx.strokeStyle = "#00FF00";
-            ctx.rect(bricksArr[i].xPos, bricksArr[i].yPos, brickWidth, brichHeight);
+            ctx.rect(bricksArr[i].xPos, bricksArr[i].yPos, brickWidth, brickHeight);
             ctx.stroke();
         }
 
@@ -61,12 +61,14 @@ function playBricks() {
         
         function collisionCheck() {
             for (let i = 0; i < bricksArr.length; i++) {
-                if (ball.xPos < bricksArr[i].xPos + brickWidth
-                 && ball.xPos > bricksArr[i].xPos 
-                 && ball.yPos < bricksArr[i].yPos + brichHeight 
+                if (ball.yPos < bricksArr[i].yPos + brickHeight
                  && ball.yPos > bricksArr[i].yPos) {
                     bricksArr.splice(-(bricksArr.length - i), 1);
                     ball.yVelocity *= -1;
+                }
+                if (ball.xPos < bricksArr[i].xPos + brickWidth
+                    && ball.xPos > bricksArr[i].xPos) {
+                    ball.xVelocity *= -1;
                 }
             }
 
@@ -83,13 +85,11 @@ function playBricks() {
         }
     }
 
-
-
     function newBricks() {
         bricksArr = [];
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 14; i++) {
             for (let j = 0; j < 8; j++) {
-                bricksArr.push(new BrickTile((j * brickWidth)+1, (i * brichHeight)+1));
+                bricksArr.push(new BrickTile((j * brickWidth)+1, (i * brickHeight)+1));
             }
         }
     }
