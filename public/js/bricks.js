@@ -11,19 +11,20 @@ function playBricks() {
     function BallObject() {
         this.xPos = 250;
         this.yPos = 250;
-        this.xVelocity = -(Math.random()*5);
-        this.yVelocity = -(Math.random()*5);
+        this.xVelocity = -5;
+        this.yVelocity = -5;
         this.radiuss = 3;
     }
 
     function PaddlePbject() {
         this.xPos = xPositional;
+        this.paddleWidth = Math.floor(canvas.width/10);
     }
 
     let canvas = document.getElementById('brick-canvas');
     let ctx = canvas.getContext('2d');
-    let brickX = Math.floor(canvas.width / 8);
-    let brickY = Math.floor(canvas.height / 16);
+    let brickWidth = Math.floor(canvas.width / 8);
+    let brichHeight = Math.floor(canvas.height / 16);
 
     ctx.fillStyle = "#000000";
     let bricksArr = [];
@@ -31,16 +32,16 @@ function playBricks() {
     let paddle = new PaddlePbject();
     let ball = new BallObject();
 
-    setInterval(pGame, 66.6);
+    setInterval(pGame, 50);
 
     function pGame() {
         ctx.clearRect(0,0,canvas.height, canvas.width);
 
         for (let i = 0; i < bricksArr.length; i++) {
             ctx.fillStyle = "#000000";
-            ctx.fillRect(bricksArr[i].xPos, bricksArr[i].yPos, brickX, brickY);
+            ctx.fillRect(bricksArr[i].xPos, bricksArr[i].yPos, brickWidth, brichHeight);
             ctx.strokeStyle = "#00FF00";
-            ctx.rect(bricksArr[i].xPos, bricksArr[i].yPos, brickX, brickY);
+            ctx.rect(bricksArr[i].xPos, bricksArr[i].yPos, brickWidth, brichHeight);
             ctx.stroke();
         }
 
@@ -51,11 +52,35 @@ function playBricks() {
         ctx.fill();
         ctx.stroke();
 
+        collisionCheck();
         ball.xPos += ball.xVelocity;
         ball.yPos += ball.yVelocity;
 
         ctx.fillStyle = "#FF00FF";
         ctx.fillRect(xPositional, canvas.height - 8, canvas.height / 10, 2);
+        
+        function collisionCheck() {
+            for (let i = 0; i < bricksArr.length; i++) {
+                if (ball.xPos < bricksArr[i].xPos + brickWidth
+                 && ball.xPos > bricksArr[i].xPos 
+                 && ball.yPos < bricksArr[i].yPos + brichHeight 
+                 && ball.yPos > bricksArr[i].yPos) {
+                    bricksArr.splice(-(bricksArr.length - i), 1);
+                    ball.yVelocity *= -1;
+                }
+            }
+
+            if (ball.yPos > canvas.height - 8
+             && ball.xPos < xPositional + paddle.paddleWidth
+                && ball.xPos > xPositional) {
+                ball.yVelocity *= -1;
+            }
+
+            if (ball.xPos > canvas.width ||
+                    ball.xPos < 0) {
+                ball.xVelocity *= -1;
+            }
+        }
     }
 
 
@@ -64,7 +89,7 @@ function playBricks() {
         bricksArr = [];
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 8; j++) {
-                bricksArr.push(new BrickTile((j * brickX)+1, (i * brickY)+1));
+                bricksArr.push(new BrickTile((j * brickWidth)+1, (i * brichHeight)+1));
             }
         }
     }
@@ -80,6 +105,8 @@ function keyPushB(key) {
             break;
         case 39: // Right arrow
             xPositional += 5;
+            break;
+        case 40: //Down arrow
             break;
         case 116:
             location.reload();
