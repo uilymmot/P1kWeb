@@ -17,5 +17,6 @@ Route::get('/about', 'PagesController@about');
 Route::get('/projects', 'PostsController@index');
 Route::get('/snakesPage', 'PagesController@snakesPage');
 Route::get('/bricksPage', 'PagesController@bricksPage');
+Route::get('/sudoku', 'PagesController@sudoku');
 
 Route::resource('posts', 'PostsController');

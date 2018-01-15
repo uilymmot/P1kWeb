@@ -33,4 +33,8 @@ class PagesController extends Controller
     public function bricksPage() {
         return view('pages.bricksGame');
     }
+
+    public function sudoku() {
+        return view ('pages.sudoku');
+    }
 }

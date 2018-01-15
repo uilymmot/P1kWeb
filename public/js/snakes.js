@@ -10,7 +10,7 @@ function playSnakes() {
         let scalefact = 20;
         let canvas = document.getElementById("snakes-canvas");
         let ctx = canvas.getContext("2d");
-        let itemWidth = canvas.height / scalefact;
+        let itemWidth = (canvas.height / scalefact);
 
         let snake = [];
         newSnake();
@@ -55,7 +55,7 @@ function playSnakes() {
             //Draw the snakes pieces
             ctx.fillStyle = "#1FFF1F";
             for (let i = 0; i < snake.length; i+=1) {
-                ctx.fillRect(snake[i].xPos, snake[i].yPos, itemWidth, itemWidth);
+                ctx.fillRect(snake[i].xPos+1, snake[i].yPos+1, itemWidth-2, itemWidth-2);
             }
             ctx.fillStyle = "#0000FF";
             ctx.fillRect(snake[0].xPos, snake[0].yPos, itemWidth, itemWidth);

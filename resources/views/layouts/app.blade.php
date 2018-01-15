@@ -27,6 +27,9 @@
                 <a href="projects">Projects</a>
             </div>
             <div class="links-c">
+                <a href="sudoku">Sudoku</a>
+            </div>
+            <div class="links-c">
                 <a href="page1">Misc web stuff</a>
             </div>
             <div class="links-c">

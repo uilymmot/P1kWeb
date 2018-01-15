@@ -86,7 +86,7 @@ function playBricks() {
                 ball.xVelocity *= -1;
             }
 
-            if (ball < 0) {
+            if (ball.yPos < 0) {
                 ball.yVelocity *= -1;
             }
         }
@@ -105,13 +105,13 @@ function playBricks() {
 function keyPushB(key) {
     switch (key.keyCode) {
         case 37: // Left arrow
-            xPositional -= 5;
+            xPositional -= 12;
             break;
         case 38: // Up arrow
             pUp = true;
             break;
         case 39: // Right arrow
-            xPositional += 5;
+            xPositional += 12;
             break;
         case 40: //Down arrow
             break;

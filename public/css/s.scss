@@ -147,3 +147,14 @@ canvas {
   flex-basis: 45%;
   margin: 5px;
 }
+
+.sudoku-wrapper {
+  display: flex;
+  flex-direction: column;
+
+  .sudoku-row {
+    input[type=number] {
+      width: 20px;
+    }
+  }
+}
