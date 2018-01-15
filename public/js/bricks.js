@@ -18,7 +18,7 @@ function playBricks() {
 
     function PaddlePbject() {
         this.xPos = xPositional;
-        this.paddleWidth = Math.floor(canvas.width/10);
+        this.paddleWidth = Math.floor(canvas.width/5);
     }
 
     let canvas = document.getElementById('brick-canvas');
@@ -32,10 +32,14 @@ function playBricks() {
     let paddle = new PaddlePbject();
     let ball = new BallObject();
 
-    setInterval(pGame, 50);
+    setInterval(pGame, 20);
 
     function pGame() {
         ctx.clearRect(0,0,canvas.height, canvas.width);
+        if (bricksArr.length === 0) {
+            alert("Congrats, you won and wasted your life playing a game of shitty brick breaker");
+        }
+
 
         for (let i = 0; i < bricksArr.length; i++) {
             ctx.fillStyle = "#000000";
@@ -57,18 +61,16 @@ function playBricks() {
         ball.yPos += ball.yVelocity;
 
         ctx.fillStyle = "#FF00FF";
-        ctx.fillRect(xPositional, canvas.height - 8, canvas.height / 10, 2);
+        ctx.fillRect(xPositional, canvas.height - 8, paddle.paddleWidth, 2);
         
         function collisionCheck() {
             for (let i = 0; i < bricksArr.length; i++) {
                 if (ball.yPos < bricksArr[i].yPos + brickHeight
-                 && ball.yPos > bricksArr[i].yPos) {
+                 && ball.yPos > bricksArr[i].yPos
+                 && ball.xPos < bricksArr[i].xPos + brickWidth
+                 && ball.xPos > bricksArr[i].xPos) {
                     bricksArr.splice(-(bricksArr.length - i), 1);
                     ball.yVelocity *= -1;
-                }
-                if (ball.xPos < bricksArr[i].xPos + brickWidth
-                    && ball.xPos > bricksArr[i].xPos) {
-                    ball.xVelocity *= -1;
                 }
             }
 
@@ -76,18 +78,23 @@ function playBricks() {
              && ball.xPos < xPositional + paddle.paddleWidth
                 && ball.xPos > xPositional) {
                 ball.yVelocity *= -1;
+                ball.xVelocity = (Math.random() - Math.random())*5;
             }
 
             if (ball.xPos > canvas.width ||
                     ball.xPos < 0) {
                 ball.xVelocity *= -1;
             }
+
+            if (ball < 0) {
+                ball.yVelocity *= -1;
+            }
         }
     }
 
     function newBricks() {
         bricksArr = [];
-        for (let i = 0; i < 14; i++) {
+        for (let i = 0; i < 5; i++) {
             for (let j = 0; j < 8; j++) {
                 bricksArr.push(new BrickTile((j * brickWidth)+1, (i * brickHeight)+1));
             }
