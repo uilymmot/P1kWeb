@@ -48,7 +48,7 @@ function playSnakes() {
 
             ctx.fillStyle = "#FF0000";
             ctx.fillRect(apple.xPos, apple.yPos, itemWidth, itemWidth);
-            ctx.strokeStyle = "#00FFFF";
+            ctx.strokeStyle = "#FF88FF";
             ctx.rect(apple.xPos, apple.yPos, itemWidth, itemWidth);
             ctx.stroke();
 

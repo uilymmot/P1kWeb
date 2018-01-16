@@ -27,7 +27,6 @@ html, body {
 .wrapper div {
   justify-content: center;
   text-align: center;
-
 }
 
 .header {
@@ -157,4 +156,9 @@ canvas {
       width: 20px;
     }
   }
+}
+
+button[id=butt] {
+  width: 50%;
+  align-self: center;
 }

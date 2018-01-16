@@ -117,4 +117,8 @@ canvas {
   .sudoku-wrapper .sudoku-row input[type=number] {
     width: 20px; }
 
+button[id=butt] {
+  width: 50%;
+  align-self: center; }
+
 /*# sourceMappingURL=s.css.map */
