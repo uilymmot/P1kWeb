@@ -40,7 +40,6 @@ function playBricks() {
             alert("Congrats, you won and wasted your life playing a game of shitty brick breaker");
         }
 
-
         for (let i = 0; i < bricksArr.length; i++) {
             ctx.fillStyle = "#000000";
             ctx.fillRect(bricksArr[i].xPos, bricksArr[i].yPos, brickWidth, brickHeight);

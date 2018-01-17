@@ -13,7 +13,6 @@ function playSnakes() {
         let ctx = canvas.getContext("2d");
         let itemWidth = (canvas.height / scalefact);
         let score = 0;
-
         let snake = [];
         newSnake();
         let apple = new AppleObject();
@@ -37,9 +36,8 @@ function playSnakes() {
 
             //Make sure apple lies within bounds
             if (apple.xPos > canvas.width - itemWidth
-                || apple.yPos > canvas.height - itemWidth) {
+                || apple.yPos > canvas.height - itemWidth)
                 apple = new AppleObject();
-            }
 
             //Clear canvas at start of every iteration
             ctx.clearRect(0, 0, canvas.width, canvas.height);
