@@ -12,21 +12,18 @@ function solveTheSudoku() {
 
     let sudokuRows = generateRows([]);
     let sudokuCols = generateCols([]);
-    alert(sudokuCols);
     let sudokuNines = generateNines([]);
 
     if (!rcnValid()) alert('Not a valid sudoki');
 
-    alert(sudokuCols);
-    alert(typeof sudokuCols);
-    alert(sudokuCols[0]);
+    alert(sudokuRows);
+    alert(findFirstDot(sudokuRows));
 
     function generateRows (re) {
         for (let i = 0; i < 9; i++) {
             let tempRow = [];
-            for (let j = 0; j < 9; j++) {
+            for (let j = 0; j < 9; j++)
                 tempRow.push(vals[(i*9) + j]);
-            }
             re.push(tempRow);
         }
         return re;
@@ -55,43 +52,35 @@ function solveTheSudoku() {
             tempNine.push(vals[splitter+18]);
             tempNine.push(vals[splitter+19]);
             tempNine.push(vals[splitter+20]);
-
             if (((i+1) % 3) === 0) splitter += 21;
             else splitter += 3;
             ne.push(tempNine);
         }
         return ne;
     }
-
     function isNineValid (x) {
         let first = x.shift();
         if (x.length === 0) return true;
-        for (let i = 0; i < x.length; i++) {
+        for (let i = 0; i < x.length; i++)
             if (x[i] === first && x[i] !== '.') return false;
-        }
         return isNineValid(x);
     }
     function isAllValid (x) {
-        for (let i = 0; i < x.length; i++) {
+        for (let i = 0; i < x.length; i++)
             if (!isNineValid(x[i])) return false;
-        }
         return true;
     }
     function rcnValid () {
         let r = jQuery.extend(true, {}, sudokuRows);
         let c = jQuery.extend(true, {}, sudokuCols);
         let n = jQuery.extend(true, {}, sudokuNines);
-
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < 9; i++)
             if (!isAllValid(r) ||
                 !isAllValid(c) ||
-                !isAllValid(n)) {
+                !isAllValid(n))
                 return false;
-            }
-        }
         return true;
     }
-
     function insertOneInto (arrArr) {
         let xy = findFirstDot(arrArr);
         let tempArr = [];
@@ -102,13 +91,11 @@ function solveTheSudoku() {
         }
         return tempArr;
     }
-
     function findFirstDot(arrArr) {
         for (let i = 0; i < 9; i++) {
-            for (let j = 0; j < 9; j ++) {
+            for (let j = 0; j < 9; j ++)
                 if (arrArr[i][j] === '.')
                     return [i, j];
-            }
         }
         return null;
     }
