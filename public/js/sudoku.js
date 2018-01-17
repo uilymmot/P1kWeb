@@ -12,12 +12,14 @@ function solveTheSudoku() {
 
     let sudokuRows = generateRows([]);
     let sudokuCols = generateCols([]);
+    alert(sudokuCols);
     let sudokuNines = generateNines([]);
 
     if (!rcnValid()) alert('Not a valid sudoki');
 
     alert(sudokuCols);
-    alert(findFirstDot(sudokuNines));
+    alert(typeof sudokuCols);
+    alert(sudokuCols[0]);
 
     function generateRows (re) {
         for (let i = 0; i < 9; i++) {
@@ -38,7 +40,6 @@ function solveTheSudoku() {
             }
             ce.push(tempCol);
         }
-        alert(ce);
         return ce;
     }
     function generateNines (ne){
@@ -77,10 +78,14 @@ function solveTheSudoku() {
         return true;
     }
     function rcnValid () {
+        let r = jQuery.extend(true, {}, sudokuRows);
+        let c = jQuery.extend(true, {}, sudokuCols);
+        let n = jQuery.extend(true, {}, sudokuNines);
+
         for (let i = 0; i < 9; i++) {
-            if (!isAllValid(sudokuRows) ||
-                !isAllValid(sudokuCols) ||
-                !isAllValid(sudokuNines)) {
+            if (!isAllValid(r) ||
+                !isAllValid(c) ||
+                !isAllValid(n)) {
                 return false;
             }
         }
