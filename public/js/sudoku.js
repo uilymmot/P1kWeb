@@ -94,6 +94,21 @@ function solveTheSudoku() {
         }
     }
 
+    function insertOneInto (arrArr) {
+
+    }
+
+    function fintFirstDot(arrArr) {
+        for (let i = 0; i < 9; i++) {
+            for (let j = 0; j < 9; j ++) {
+                if (arrArr[i][j] === '.') {
+                    return [i, j];
+                }
+            }
+        }
+        return null;
+    }
+
     /* For timing later on
     var t0 = performance.now();
     doSomething();

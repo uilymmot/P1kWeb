@@ -1,5 +1,6 @@
 let xVelocity = 1;
 let yVelocity = 0;
+let collisionsOn = true;
 let isRunning = false;
 //Iunno how to include these variables in the scope of playGame
 document.onkeydown = keyPushS;
@@ -69,40 +70,50 @@ function playSnakes() {
             let newX = snake[0].xPos + (xVelocity * itemWidth);
             let newY = snake[0].yPos + (yVelocity * itemWidth);
 
-            //If head consumes apple
-            if (newX === apple.xPos && newY === apple.yPos) {
-                consumedApple = true;
-            }
-
             //Check if snake exceeds bounds of the canvas
             if (newX > canvas.width-1) newX = 0;
             if (newY > canvas.height-1) newY = 0;
             if (newX < -1) newX = canvas.width - itemWidth;
             if (newY < -1) newY = canvas.height - itemWidth;
 
-            let restart = false;
-            //if snake hit its own body pieces
-            for (let i = 0; i < snake.length; i++) {
-                if (snake[i].xPos === newX && snake[i].yPos === newY) {
-                    newSnake();
-                    score = 0;
-                    xVelocity = 1;
-                    yVelocity = 0;
-                    restart = true;
-                }
-            }
+           if (collisionsOn) {
+               collisionCheck();
+           }
+           else {
+               snake.unshift(new SnakeObject(newX, newY));
+               snake.splice(-1,1);
+           }
 
-            if (!restart) {
-                //Move head piece forward and delete last body piece
-                snake.unshift(new SnakeObject(newX, newY));
-                if (!consumedApple) {
-                    snake.splice(-1, 1);
-                }
-                else {
-                    apple = new AppleObject();
-                    score++;
-                }
-            }
+           function collisionCheck() {
+               //If head consumes apple
+               if (newX === apple.xPos && newY === apple.yPos) {
+                   consumedApple = true;
+               }
+
+               let restart = false;
+               //if snake hit its own body pieces
+               for (let i = 0; i < snake.length; i++) {
+                   if (snake[i].xPos === newX && snake[i].yPos === newY) {
+                       newSnake();
+                       score = 0;
+                       xVelocity = 1;
+                       yVelocity = 0;
+                       restart = true;
+                   }
+               }
+
+               if (!restart) {
+                   //Move head piece forward and delete last body piece
+                   snake.unshift(new SnakeObject(newX, newY));
+                   if (!consumedApple) {
+                       snake.splice(-1, 1);
+                   }
+                   else {
+                       apple = new AppleObject();
+                       score++;
+                   }
+               }
+           }
         }
 
         //Generates an array with the starting snake of len 5
@@ -154,6 +165,9 @@ function keyPushS(key) {
                 xVelocity = 0;
                 yVelocity = 1;
             }
+            break;
+        case 13:
+            collisionsOn = !collisionsOn;
             break;
         case 116:
             location.reload();
