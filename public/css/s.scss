@@ -158,9 +158,7 @@ canvas {
   }
 }
 
-input[id=sudoku-string],
-input[id=solved-sudoku-string],
-button[id=butt] {
+input[id=sudoku-string], input[id=solved-sudoku-string], button[id=butt] {
   width: 50%;
   align-self: center;
 }

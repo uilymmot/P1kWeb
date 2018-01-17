@@ -10,16 +10,15 @@ function solveTheSudoku() {
 
     document.getElementById('sudoku-string').value = vals;
 
-    {
-        let sudokuRows = [];
-        generateRows();
-        let sudokuCols = [];
-        generateCols();
-        let sudokuNines = [];
-        generateNines();
-    }
 
-    alert(rcnValid());
+    let sudokuRows = [];
+    generateRows();
+    let sudokuCols = [];
+    generateCols();
+    let sudokuNines = [];
+    generateNines();
+
+    if (!rcnValid()) alert('Not a valid sudoki');
 
     function generateRows () {
         for (let i = 0; i < 9; i++) {
@@ -85,6 +84,15 @@ function solveTheSudoku() {
         return true;
     }
 
+    function putItIn(arr) {
+        for (let i = 0; i < 9; i++) {
+            if (arr[i] === '.') {
+                for (let j = 0; j < 9; j++) {
+
+                }
+            }
+        }
+    }
 
     /* For timing later on
     var t0 = performance.now();

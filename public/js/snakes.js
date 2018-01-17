@@ -11,6 +11,7 @@ function playSnakes() {
         let canvas = document.getElementById("snakes-canvas");
         let ctx = canvas.getContext("2d");
         let itemWidth = (canvas.height / scalefact);
+        let score = 0;
 
         let snake = [];
         newSnake();
@@ -46,9 +47,13 @@ function playSnakes() {
             ctx.fillStyle = "#000000";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+            ctx.fillStyle = "#FF00FF";
+            ctx.font = "15px Comic Sans MS";
+            ctx.strokeText(score + " ", 5, 15);
+
             ctx.fillStyle = "#FF0000";
             ctx.fillRect(apple.xPos, apple.yPos, itemWidth, itemWidth);
-            ctx.strokeStyle = "#FF88FF";
+            ctx.strokeStyle = "#00FFFF";
             ctx.rect(apple.xPos, apple.yPos, itemWidth, itemWidth);
             ctx.stroke();
 
@@ -80,6 +85,7 @@ function playSnakes() {
             for (let i = 0; i < snake.length; i++) {
                 if (snake[i].xPos === newX && snake[i].yPos === newY) {
                     newSnake();
+                    score = 0;
                     xVelocity = 1;
                     yVelocity = 0;
                     restart = true;
@@ -94,6 +100,7 @@ function playSnakes() {
                 }
                 else {
                     apple = new AppleObject();
+                    score++;
                 }
             }
         }
