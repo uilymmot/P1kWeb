@@ -17,6 +17,11 @@ function solveTheSudoku() {
     let sudokuCols = [];
     generateCols();
     let sudokuNines = [];
+    generateNines();
+
+    let dickhead = [1,2,3,4,2,6,7,8,9];
+    alert(isNineValid({x: dickhead}));
+
 
     function generateRows () {
         for (let i = 0; i < 9; i++) {
@@ -40,18 +45,43 @@ function solveTheSudoku() {
     }
 
     function generateNines (){
-        for (let h = 0; h < 9; h++) {
+        let splitter = 0;
+        for(let i = 0; i < 9; i++) {
             let tempNine = [];
-            for (let i = 0; i < 3; i++) {
-                for (let j = 0; j < 3; j++) {
-                    tempNine.push(sudokuRows[i][j]);
-                }
-            }
+            tempNine.push(vals[splitter]);
+            tempNine.push(vals[splitter+1]);
+            tempNine.push(vals[splitter+2]);
+            tempNine.push(vals[splitter+9]);
+            tempNine.push(vals[splitter+10]);
+            tempNine.push(vals[splitter+11]);
+            tempNine.push(vals[splitter+18]);
+            tempNine.push(vals[splitter+19]);
+            tempNine.push(vals[splitter+20]);
+
+            if (((i+1) % 3) === 0) splitter += 21;
+            else splitter += 3;
             sudokuNines.push(tempNine);
         }
-
-
     }
+
+    function isNineValid (parameters) {
+        let x = parameters.x;
+        if (x.length === 0) {
+            alert("Yas");
+            return true;
+        }
+
+        let first = x.shift();
+
+        for (let i = 0; i < x.length; i++) {
+            if (x[i] === first) {
+                alert("noe");
+                return false;
+            }
+        }
+        return isNineValid({x: x});
+    }
+
 
 
     /* For timing later on
