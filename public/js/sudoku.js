@@ -2,26 +2,24 @@ function solveTheSudoku() {
     let inputs = document.getElementsByClassName('sudoku-in');
 
     let vals  = [].map.call(inputs, function( input ) {
-        if (input.value.length === 0) {
+        if (input.value.length === 0)
             return '.';
-        }
-        else {
+        else
             return input.value;
-        }
     }).join('');
 
     document.getElementById('sudoku-string').value = vals;
 
-    let sudokuRows = [];
-    generateRows();
-    let sudokuCols = [];
-    generateCols();
-    let sudokuNines = [];
-    generateNines();
+    {
+        let sudokuRows = [];
+        generateRows();
+        let sudokuCols = [];
+        generateCols();
+        let sudokuNines = [];
+        generateNines();
+    }
 
-    let dickhead = [1,2,3,4,2,6,7,8,9];
-    alert(isNineValid({x: dickhead}));
-
+    alert(rcnValid());
 
     function generateRows () {
         for (let i = 0; i < 9; i++) {
@@ -32,7 +30,6 @@ function solveTheSudoku() {
             sudokuRows.push(tempRow);
         }
     }
-
     function generateCols () {
         for (let i = 0; i < 9; i++) {
             let tempCol = [];
@@ -43,7 +40,6 @@ function solveTheSudoku() {
             sudokuCols.push(tempCol);
         }
     }
-
     function generateNines (){
         let splitter = 0;
         for(let i = 0; i < 9; i++) {
@@ -64,24 +60,30 @@ function solveTheSudoku() {
         }
     }
 
-    function isNineValid (parameters) {
-        let x = parameters.x;
-        if (x.length === 0) {
-            alert("Yas");
-            return true;
-        }
-
+    function isNineValid (x) {
         let first = x.shift();
-
+        if (x.length === 0) return true;
         for (let i = 0; i < x.length; i++) {
-            if (x[i] === first) {
-                alert("noe");
+            if (x[i] === first && x[i] !== '.') return false;
+        }
+        return isNineValid(x);
+    }
+    function isAllValid (x) {
+        for (let i = 0; i < x.length; i++) {
+            if (!isNineValid(x[i])) return false;
+        }
+        return true;
+    }
+    function rcnValid () {
+        for (let i = 0; i < 9; i++) {
+            if (!isAllValid(sudokuRows) ||
+                !isAllValid(sudokuCols) ||
+                !isAllValid(sudokuNines)) {
                 return false;
             }
         }
-        return isNineValid({x: x});
+        return true;
     }
-
 
 
     /* For timing later on

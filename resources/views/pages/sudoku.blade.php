@@ -17,11 +17,12 @@
                 @endwhile
             </div>
             <?php $colCount += 1;
-                  $rowCount = 0; ?>
+            $rowCount = 0; ?>
         @endwhile
         <br/>
         <input type="text" id="sudoku-string">
+        <input type="text" id="solved-sudoku-string">
         <br/>
-            <button onclick="solveTheSudoku()" id="butt">Solve!</button>
+        <button onclick="solveTheSudoku()" id="butt">Solve!</button>
     </div>
 @endsection
