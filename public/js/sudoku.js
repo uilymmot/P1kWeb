@@ -10,36 +10,38 @@ function solveTheSudoku() {
 
     document.getElementById('sudoku-string').value = vals;
 
-
-    let sudokuRows = [];
-    generateRows();
-    let sudokuCols = [];
-    generateCols();
-    let sudokuNines = [];
-    generateNines();
+    let sudokuRows = generateRows([]);
+    let sudokuCols = generateCols([]);
+    let sudokuNines = generateNines([]);
 
     if (!rcnValid()) alert('Not a valid sudoki');
 
-    function generateRows () {
+    alert(sudokuCols);
+    alert(findFirstDot(sudokuNines));
+
+    function generateRows (re) {
         for (let i = 0; i < 9; i++) {
             let tempRow = [];
             for (let j = 0; j < 9; j++) {
                 tempRow.push(vals[(i*9) + j]);
             }
-            sudokuRows.push(tempRow);
+            re.push(tempRow);
         }
+        return re;
     }
-    function generateCols () {
+    function generateCols (ce) {
         for (let i = 0; i < 9; i++) {
             let tempCol = [];
             for (let j = 0; j < 9; j++) {
                 let t = sudokuRows[j];
                 tempCol.push(t[i]);
             }
-            sudokuCols.push(tempCol);
+            ce.push(tempCol);
         }
+        alert(ce);
+        return ce;
     }
-    function generateNines (){
+    function generateNines (ne){
         let splitter = 0;
         for(let i = 0; i < 9; i++) {
             let tempNine = [];
@@ -55,8 +57,9 @@ function solveTheSudoku() {
 
             if (((i+1) % 3) === 0) splitter += 21;
             else splitter += 3;
-            sudokuNines.push(tempNine);
+            ne.push(tempNine);
         }
+        return ne;
     }
 
     function isNineValid (x) {
@@ -84,26 +87,22 @@ function solveTheSudoku() {
         return true;
     }
 
-    function putItIn(arr) {
-        for (let i = 0; i < 9; i++) {
-            if (arr[i] === '.') {
-                for (let j = 0; j < 9; j++) {
-
-                }
-            }
-        }
-    }
-
     function insertOneInto (arrArr) {
-
+        let xy = findFirstDot(arrArr);
+        let tempArr = [];
+        for (let i = 0; i < 9; i++) {
+            let newArr = arrArr[xy[0]].splice(xy[1], 1, i);
+            if (isAllValid(newArr))
+                tempArr.add();
+        }
+        return tempArr;
     }
 
-    function fintFirstDot(arrArr) {
+    function findFirstDot(arrArr) {
         for (let i = 0; i < 9; i++) {
             for (let j = 0; j < 9; j ++) {
-                if (arrArr[i][j] === '.') {
+                if (arrArr[i][j] === '.')
                     return [i, j];
-                }
             }
         }
         return null;
