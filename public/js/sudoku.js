@@ -1,20 +1,20 @@
 function solveTheSudoku() {
-    let inputs = document.getElementsByClassName('sudoku-in');
+    let inputs = document.getElementsByClassName("sudoku-in");
 
     let vals  = [].map.call(inputs, function( input ) {
         if (input.value.length === 0)
             return '.';
         else
             return input.value;
-    }).join('');
+    }).join("");
 
-    document.getElementById('sudoku-string').value = vals;
+    document.getElementById("sudoku-string").value = vals;
 
     let sudokuRows = generateRows([]);
     let sudokuCols = generateCols([]);
     let sudokuNines = generateNines([]);
 
-    if (!rcnValid()) alert('Not a valid sudoki');
+    if (!rcnValid()) alert("Not a valid sudoki");
 
     alert(sudokuRows);
     alert(findFirstDot(sudokuRows));
@@ -62,7 +62,7 @@ function solveTheSudoku() {
         let first = x.shift();
         if (x.length === 0) return true;
         for (let i = 0; i < x.length; i++)
-            if (x[i] === first && x[i] !== '.') return false;
+            if (x[i] === first && x[i] !== ".") return false;
         return isNineValid(x);
     }
     function isAllValid (x) {
@@ -94,7 +94,7 @@ function solveTheSudoku() {
     function findFirstDot(arrArr) {
         for (let i = 0; i < 9; i++) {
             for (let j = 0; j < 9; j ++)
-                if (arrArr[i][j] === '.')
+                if (arrArr[i][j] === ".")
                     return [i, j];
         }
         return null;
