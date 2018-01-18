@@ -16,8 +16,7 @@ function solveTheSudoku() {
 
     if (!rcnValid()) alert("Not a valid sudoki");
 
-    alert(sudokuRows);
-    alert(findFirstDot(sudokuRows));
+    alert(insertOneInto(sudokuRows));
 
     function generateRows (re) {
         for (let i = 0; i < 9; i++) {
@@ -75,9 +74,7 @@ function solveTheSudoku() {
         let c = jQuery.extend(true, {}, sudokuCols);
         let n = jQuery.extend(true, {}, sudokuNines);
         for (let i = 0; i < 9; i++)
-            if (!isAllValid(r) ||
-                !isAllValid(c) ||
-                !isAllValid(n))
+            if (!isAllValid(r) || !isAllValid(c) || !isAllValid(n))
                 return false;
         return true;
     }
@@ -87,19 +84,21 @@ function solveTheSudoku() {
             let tempArr = insertOneInto(arrDoki[i]);
             if (tempArr === null)
                 return arrDoki[i];
-            for (let j = 0; j < tempArr.length; j++) {
+            for (let j = 0; j < tempArr.length; j++)
                 newArrDoki.unshift(tempArr[j]);
-            }
         }
         recursiveInsertion(newArrDoki);
     }
     function insertOneInto (singleDoki) {
         let xy = findFirstDot(singleDoki);
+        alert(xy);
         let tempArr = [];
         for (let i = 0; i < 9; i++) {
-            let newArr = arrArr[xy[0]].splice(xy[1], 1, i);
-            if (isAllValid(newArr))
-                tempArr.add();
+            let tS = jQuery.extend(false, {}, singleDoki);
+            tS[xy[0]].splice(xy[1],1,i);
+            alert(tS.toString());
+            if (isAllValid(tS))
+                tempArr.unshift();
         }
         return tempArr;
     }
