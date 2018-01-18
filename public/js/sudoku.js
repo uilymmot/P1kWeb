@@ -81,8 +81,20 @@ function solveTheSudoku() {
                 return false;
         return true;
     }
-    function insertOneInto (arrArr) {
-        let xy = findFirstDot(arrArr);
+    function recursiveInsertion(arrDoki) {
+        let newArrDoki = [];
+        for (let i = 0; i < arrDoki.length; i++) {
+            let tempArr = insertOneInto(arrDoki[i]);
+            if (tempArr === null)
+                return arrDoki[i];
+            for (let j = 0; j < tempArr.length; j++) {
+                newArrDoki.unshift(tempArr[j]);
+            }
+        }
+        recursiveInsertion(newArrDoki);
+    }
+    function insertOneInto (singleDoki) {
+        let xy = findFirstDot(singleDoki);
         let tempArr = [];
         for (let i = 0; i < 9; i++) {
             let newArr = arrArr[xy[0]].splice(xy[1], 1, i);
