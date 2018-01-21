@@ -43,8 +43,10 @@ $(function(){
             || e.which == 50
             || e.which == 51
             || e.which == 52
-            || e.which == 53){
-        } else {
+            || e.which == 53)  {
+            return true ;
+        }
+        else {
             return false;
         }
     });
