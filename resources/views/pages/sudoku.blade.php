@@ -12,7 +12,7 @@
         @while ($colCount < 9)
             <div class="sudoku-row">
                 @while ($rowCount < 9)
-                    <input title="sud-row" type="number" name="sudoku-inputs" class="sudoku-in" value="." maxlength="1">
+                    <input title="sud-row" type="number" name="sudoku-inputs" class="sudoku-in" value="." maxlength="1" max="10" id="txt">
                     <?php $rowCount += 1; ?>
                 @endwhile
             </div>

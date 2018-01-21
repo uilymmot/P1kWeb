@@ -13,10 +13,9 @@ function solveTheSudoku() {
     let sudokuRows = generateRows([]);
     let sudokuCols = generateCols([]);
     let sudokuNines = generateNines([]);
+    let constraints = generateListOfConstraints();
 
-    if (!rcnValid()) alert("Not a valid sudoki");
-
-    alert(insertOneInto(sudokuRows));
+    if (!rcnValid()) alert("Not a valid sudoki!");
 
     function generateRows (re) {
         for (let i = 0; i < 9; i++) {
@@ -64,52 +63,41 @@ function solveTheSudoku() {
             if (x[i] === first && x[i] !== ".") return false;
         return isNineValid(x);
     }
-    function isAllValid (x) {
-        for (let i = 0; i < x.length; i++)
-            if (!isNineValid(x[i])) return false;
-        return true;
-    }
-    function rcnValid () {
+    function rcnValid() {
         let r = jQuery.extend(true, {}, sudokuRows);
         let c = jQuery.extend(true, {}, sudokuCols);
         let n = jQuery.extend(true, {}, sudokuNines);
         for (let i = 0; i < 9; i++)
-            if (!isAllValid(r) || !isAllValid(c) || !isAllValid(n))
-                return false;
+            if (!isNineValid(r[i])
+                || !isNineValid(c[i])
+                || !isNineValid(n[i])) return false;
         return true;
     }
-    function recursiveInsertion(arrDoki) {
-        let newArrDoki = [];
-        for (let i = 0; i < arrDoki.length; i++) {
-            let tempArr = insertOneInto(arrDoki[i]);
-            if (tempArr === null)
-                return arrDoki[i];
-            for (let j = 0; j < tempArr.length; j++)
-                newArrDoki.unshift(tempArr[j]);
-        }
-        recursiveInsertion(newArrDoki);
-    }
-    function insertOneInto (singleDoki) {
-        let xy = findFirstDot(singleDoki);
-        alert(xy);
-        let tempArr = [];
+
+    function generateListOfConstraints() {
+        let constraintsR = [];
+        let constraintsC = [];
+        let constraintsN = [];
+
         for (let i = 0; i < 9; i++) {
-            let tS = jQuery.extend(false, {}, singleDoki);
-            tS[xy[0]].splice(xy[1],1,i);
-            alert(tS.toString());
-            if (isAllValid(tS))
-                tempArr.unshift();
+            for (let j = 0; j < 9; j++) {
+
+            }
         }
-        return tempArr;
+        return [];
     }
-    function findFirstDot(arrArr) {
-        for (let i = 0; i < 9; i++) {
-            for (let j = 0; j < 9; j ++)
-                if (arrArr[i][j] === ".")
-                    return [i, j];
+
+    function constraintsOfABlock(blockOfNine) {
+        let a = [1,2,3,4,5,6,7,8,9];
+        for (let i = 0; i < blockOfNine; i++) {
+            let index = $.inArray(blockOfNine[i], a);
+            if (index !== -1) {
+                a.splice(index,1);
+            }
         }
-        return null;
+        return a;
     }
+
 
     /* For timing later on
     var t0 = performance.now();

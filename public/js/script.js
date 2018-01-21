@@ -33,5 +33,19 @@ function drawOnCan(num) {
     ctx.fillText(num, +xPos, +yPos);
 }
 
-
-
+$(function(){
+    $('#txt').keypress(function(e){
+        if( e.which == 49
+            || e.which == 57
+            || e.which == 56
+            || e.which == 55
+            || e.which == 54
+            || e.which == 50
+            || e.which == 51
+            || e.which == 52
+            || e.which == 53){
+        } else {
+            return false;
+        }
+    });
+});
