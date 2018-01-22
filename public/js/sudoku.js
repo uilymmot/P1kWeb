@@ -81,17 +81,16 @@ function solveTheSudoku() {
         let constraintsN = [];
 
         for (let i = 0; i < 9; i++) {
-            let rCons = constraintsOfABlock(sudokuRows[i]);
-            let cCons = constraintsOfABlock(sudokuCols[i]);
-            let nCones = constraintsOfABlock(sudokuNines[i]);
-
+            constraintsR.push(constraintsOfABlock(sudokuRows[i]));
+            constraintsC.push(constraintsOfABlock(sudokuCols[i]));
+            constraintsN.push(constraintsOfABlock(sudokuNines[i]));
         }
         return [];
     }
     function constraintsOfABlock(blockOfNine) {
         let a = [1,2,3,4,5,6,7,8,9];
         for (let i = 0; i < blockOfNine.length; i++) {
-            let index = a.indexOf(parseInt(blockOfNine[i], 10));
+            let index = a.indexOf(+blockOfNine[i]);
             if (index !== -1) a.splice(index,1);
         }
         return a;

@@ -8,9 +8,7 @@
             <?php $count++ ?>
             <div class="projectitem">
                 <h3><a href="/posts/{{$post->id}}">{{$post->title}}</a></h3>
-                <p>
-                    {{$post->description}}
-                </p>
+                <p>{{$post->description}}</p>
             </div>
         @endforeach
     @else
