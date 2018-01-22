@@ -14,14 +14,7 @@ function solveTheSudoku() {
     let sudokuCols = generateCols([]);
     let sudokuNines = generateNines([]);
 
-    let t0 = performance.now();
-    let g = constraintsOfABlock(sudokuRows[0]);
-    let t1 = performance.now();
-
-    alert(t1-t0);
-
     if (!rcnValid()) alert("Not a valid sudoki!");
-
     function generateRows (re) {
         for (let i = 0; i < 9; i++) {
             let tempRow = [];
