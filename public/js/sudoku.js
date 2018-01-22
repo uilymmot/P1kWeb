@@ -13,9 +13,12 @@ function solveTheSudoku() {
     let sudokuRows = generateRows([]);
     let sudokuCols = generateCols([]);
     let sudokuNines = generateNines([]);
-    let constraints = [];
 
-    alert(constraintsOfABlock(sudokuRows[0]));
+    let t0 = performance.now();
+    let g = constraintsOfABlock(sudokuRows[0]);
+    let t1 = performance.now();
+
+    alert(t1-t0);
 
     if (!rcnValid()) alert("Not a valid sudoki!");
 
@@ -90,16 +93,10 @@ function solveTheSudoku() {
     function constraintsOfABlock(blockOfNine) {
         let a = [1,2,3,4,5,6,7,8,9];
         for (let i = 0; i < blockOfNine.length; i++) {
+            if (blockOfNine[i] === ".") continue;
             let index = a.indexOf(+blockOfNine[i]);
             if (index !== -1) a.splice(index,1);
         }
         return a;
     }
-
-
-    /* For timing later on
-    var t0 = performance.now();
-    doSomething();
-    var t1 = performance.now();
-     */
 }

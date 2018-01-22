@@ -16,6 +16,7 @@ function playSnakes() {
         let snake = [];
         newSnake();
         let apple = new AppleObject();
+        let superApple = false;
 
         //Updates the snake/apple in some time
         window.setInterval(pGame, 1000/10);
@@ -50,7 +51,7 @@ function playSnakes() {
             ctx.font = "15px Comic Sans MS";
             ctx.strokeText(score + " ", 5, 15);
 
-            ctx.fillStyle = "#FF0000";
+            ctx.fillStyle = (!superApple) ? "#FF0000" : "#11AA88";
             ctx.fillRect(apple.xPos, apple.yPos, itemWidth, itemWidth);
             ctx.strokeStyle = "#00FFFF";
             ctx.rect(apple.xPos, apple.yPos, itemWidth, itemWidth);
@@ -108,6 +109,15 @@ function playSnakes() {
                    }
                    else {
                        apple = new AppleObject();
+                       if (superApple) {
+                           for (let i = 0; i < 5; i++) {
+                               let finX = snake[snake.length - 1].xPos + (-xVelocity * itemWidth);
+                               let finY = snake[snake.length - 1].yPos + (-yVelocity * itemWidth);
+                               snake.push(new SnakeObject(finX, finY));
+                               score++;
+                           }
+                       }
+                       superApple = Math.random() > 0.90;
                        score++;
                    }
                }
