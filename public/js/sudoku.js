@@ -13,9 +13,13 @@ function solveTheSudoku() {
     let sudokuRows = generateRows([]);
     let sudokuCols = generateCols([]);
     let sudokuNines = generateNines([]);
-    generateListOfConstraints();
+    let constraintsR = [];
+    let constraintsC = [];
+    let constraintsN = [];
+    let constraints = generateListOfConstraints();
 
     if (!rcnValid()) alert("Not a valid sudoki!");
+
     function generateRows (re) {
         for (let i = 0; i < 9; i++) {
             let tempRow = [];
@@ -73,20 +77,18 @@ function solveTheSudoku() {
         return true;
     }
     function generateListOfConstraints() {
-        let constraintsR = [];
-        let constraintsC = [];
-        let constraintsN = [];
-        let allIndivConstraints = [];
-
         for (let i = 0; i < 9; i++) {
             constraintsR.push(constraintsOfABlock(sudokuRows[i]));
             constraintsC.push(constraintsOfABlock(sudokuCols[i]));
             constraintsN.push(constraintsOfABlock(sudokuNines[i]));
         }
-
+        rcnToConstraints();
+    }
+    function rcnToConstraints() {
+        let temp = [];
         for (let i = 0; i < 81; i++) {
             if (vals[i] !== ".") {
-                allIndivConstraints.push([]);
+                temp.push([]);
                 console.log("Nothing");
             }
             else {
@@ -94,9 +96,36 @@ function solveTheSudoku() {
                 let y = i % 9;
                 let z = boxLookup(x, y);
                 let int = array_intersect(constraintsR[x], constraintsC[y], constraintsN[z]);
+                temp.push(int);
                 console.log(int);
             }
         }
+        constraints = temp;
+    }
+    function updateConstraints(indice, value) {
+        constraints = [];
+        let x = Math.floor(indice / 9);
+        let y = indice % 9;
+        let z = boxLookup(x,y);
+        for (let i = 0; i < constraintsR[x].length; i++) {
+            let ind = constraintsR[x][i].indexOf(value);
+            if (ind > -1) {
+                constraintsR[x][i].splice(ind, 1);
+            }
+        }
+        for (let i = 0; i < constraintsC[y].length; i++) {
+            let ind = constraintsC[y][i].indexOf(value);
+            if (ind > -1) {
+                constraintsC[y][i].splice(ind, 1);
+            }
+        }
+        for (let i = 0; i < constraintsN[z].length; i++) {
+            let ind = constraintsN[z][i].indexOf(value);
+            if (ind > -1) {
+                constraintsN[z][i].splice(ind, 1);
+            }
+        }
+        rcnToConstraints();
     }
     function boxLookup(x, y) {
         x+=1;y+=1;
@@ -120,4 +149,4 @@ function solveTheSudoku() {
         return a;
     }
 }
-function array_intersect(){let a,b,c,d,e,f,g=[],h={},i;i=arguments.length-1;d=arguments[0].length;c=0;for(a=0;a<=i;a++){e=arguments[a].length;if(e<d){c=a;d=e}}for(a=0;a<=i;a++){e=a===c?0:a||c;f=arguments[e].length;for(let j=0;j<f;j++){let k=arguments[e][j];if(h[k]===a-1){if(a===i){g.push(k);h[k]=0}else{h[k]=a}}else if(a===0){h[k]=0}}}return g}
+function array_intersect(){let a,c,d,e,f,g=[],h={},i;i=arguments.length-1;d=arguments[0].length;c=0;for(a=0;a<=i;a++){e=arguments[a].length;if(e<d){c=a;d=e}}for(a=0;a<=i;a++){e=a===c?0:a||c;f=arguments[e].length;for(let j=0;j<f;j++){let k=arguments[e][j];if(h[k]===a-1){if(a===i){g.push(k);h[k]=0}else{h[k]=a}}else if(a===0){h[k]=0}}}return g}
