@@ -76,6 +76,7 @@ function solveTheSudoku() {
         let constraintsR = [];
         let constraintsC = [];
         let constraintsN = [];
+        let allIndivConstraints = [];
 
         for (let i = 0; i < 9; i++) {
             constraintsR.push(constraintsOfABlock(sudokuRows[i]));
@@ -83,8 +84,31 @@ function solveTheSudoku() {
             constraintsN.push(constraintsOfABlock(sudokuNines[i]));
         }
 
-        console.log(constraintsR);
-        return [];
+        for (let i = 0; i < 81; i++) {
+            if (vals[i] !== ".") {
+                allIndivConstraints.push([]);
+                console.log("Nothing");
+            }
+            else {
+                let x = Math.floor(i / 9);
+                let y = i % 9;
+                let z = boxLookup(x, y);
+                let int = array_intersect(constraintsR[x], constraintsC[y], constraintsN[z]);
+                console.log(int);
+            }
+        }
+    }
+    function boxLookup(x, y) {
+        x+=1;y+=1;
+        if (x <= 3 && y <= 3) return 0;
+        else if (x <= 3 && y <= 6) return 1;
+        else if (x <= 3 && y <= 9) return 2;
+        else if (x <= 6 && y <= 3) return 3;
+        else if (x <= 6 && y <= 6) return 4;
+        else if (x <= 6 && y <= 9) return 5;
+        else if (x <= 9 && y <= 3) return 6;
+        else if (x <= 9 && y <= 6) return 7;
+        else if (x <= 9 && y <= 9) return 8;
     }
     function constraintsOfABlock(blockOfNine) {
         let a = [1,2,3,4,5,6,7,8,9];
@@ -96,3 +120,4 @@ function solveTheSudoku() {
         return a;
     }
 }
+function array_intersect(){let a,b,c,d,e,f,g=[],h={},i;i=arguments.length-1;d=arguments[0].length;c=0;for(a=0;a<=i;a++){e=arguments[a].length;if(e<d){c=a;d=e}}for(a=0;a<=i;a++){e=a===c?0:a||c;f=arguments[e].length;for(let j=0;j<f;j++){let k=arguments[e][j];if(h[k]===a-1){if(a===i){g.push(k);h[k]=0}else{h[k]=a}}else if(a===0){h[k]=0}}}return g}
