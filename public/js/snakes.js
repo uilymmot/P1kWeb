@@ -94,7 +94,7 @@ function playSnakes() {
                                score++;
                            }
                        }
-                       superApple = Math.random() > 0.90;
+                       superApple = Math.random() > 0.750;
                        score++;
                    }
                }

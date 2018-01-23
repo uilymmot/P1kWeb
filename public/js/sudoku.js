@@ -13,6 +13,7 @@ function solveTheSudoku() {
     let sudokuRows = generateRows([]);
     let sudokuCols = generateCols([]);
     let sudokuNines = generateNines([]);
+    generateListOfConstraints();
 
     if (!rcnValid()) alert("Not a valid sudoki!");
     function generateRows (re) {
@@ -81,6 +82,8 @@ function solveTheSudoku() {
             constraintsC.push(constraintsOfABlock(sudokuCols[i]));
             constraintsN.push(constraintsOfABlock(sudokuNines[i]));
         }
+
+        console.log(constraintsR);
         return [];
     }
     function constraintsOfABlock(blockOfNine) {
