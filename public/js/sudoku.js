@@ -106,15 +106,16 @@ function solveTheSudoku() {
     }
     function updateConstraints(indice, value) {
         constraints = [];
-        let x = Math.floor(indice / 9);
-        let y = indice % 9;
-        let z = boxLookup(x,y);
-        let indR = constraintsR[x].indexOf(value);
-        if (indR > -1) constraintsR[x].splice(indR, 1);
-        let indC = constraintsC[y].indexOf(value);
-        if (indC > -1) constraintsC[y].splice(indC, 1);
-        let indN = constraintsN[z].indexOf(value);
-        if (indN > -1) constraintsN[z].splice(indN, 1);
+        let r = Math.floor(indice / 9);
+        let c = indice % 9;
+        let n = boxLookup(r,c);
+        let indR = constraintsR[r].indexOf(value);
+        if (indR > -1) constraintsR[r].splice(indR, 1);
+        let indC = constraintsC[c].indexOf(value);
+        if (indC > -1) constraintsC[c].splice(indC, 1);
+        let indN = constraintsN[n].indexOf(value);
+        if (indN > -1) constraintsN[n
+            ].splice(indN, 1);
         rcnToConstraints();
         console.log(constraints);
     }
@@ -142,13 +143,16 @@ function solveTheSudoku() {
     function findLargestConstrainment() {
         let currIndice = 0;
         let currIndiceConstraints = 9;
-        for (let i = 0; i < 81; i++) {
-            if (constraints[i].length < currIndiceConstraints && constraints[i].length !== 0) {
-                currIndice = i;
-                currIndiceConstraints = constraints[i].length;
-            }
+        for (let i = 0; i < 81; i++)
+            if (constraints[i].length < currIndiceConstraints
+                && constraints[i].length !== 0) {
+            currIndice = i;
+            currIndiceConstraints = constraints[i].length;
         }
         return currIndice;
+    }
+    function updateSudoku() {
+
     }
 
 }

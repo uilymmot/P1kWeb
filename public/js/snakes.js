@@ -41,9 +41,9 @@ function playSnakes() {
             ctx.fillStyle = "#FF00FF";
             ctx.font = "15px Comic Sans MS";
             ctx.strokeText(score + " ", 5, 15);
-            ctx.fillStyle = (!superApple) ? "#FF0000" : "#11AA88";
+            ctx.fillStyle = (!superApple) ? "#FF0000" : "#DDB511";
             ctx.fillRect(apple.xPos, apple.yPos, itemWidth, itemWidth);
-            ctx.strokeStyle = "#00FFFF";
+            ctx.strokeStyle = "#B4AAF9";
             ctx.rect(apple.xPos, apple.yPos, itemWidth, itemWidth);
             ctx.stroke();
             //Draw the snakes pieces
