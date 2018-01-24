@@ -20,6 +20,7 @@ function solveTheSudoku() {
     let backtrackpoint = [];
     let backtrackNow = false;
     generateListOfConstraints();
+    console.log(findLargestConstrainment());
 
     if (!rcnValid()) alert("Not a valid sudoki!");
 
@@ -165,9 +166,13 @@ function solveTheSudoku() {
             backtrackpoint = constraints;
         }
         else {
+            let backTrackArr = poss;
             updateConstraints(consIndice, poss[0]);
-
+            poss.shift();
+            backtrackpoint = constraints;
+            backtrackpoint[consIndice] = poss;
         }
+
         document.getElementById("solved-sud-string").value = vals;
     }
 
