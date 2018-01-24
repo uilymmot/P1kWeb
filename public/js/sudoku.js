@@ -17,7 +17,6 @@ function solveTheSudoku() {
     let constraintsC = [];
     let constraintsN = [];
     let constraints = generateListOfConstraints();
-    updateConstraints(1, 1);
 
     if (!rcnValid()) alert("Not a valid sudoki!");
 
@@ -97,6 +96,7 @@ function solveTheSudoku() {
                 let y = i % 9;
                 let z = boxLookup(x, y);
                 let int = array_intersect(constraintsR[x], constraintsC[y], constraintsN[z]);
+                if (int.length === 0) alert("not a valid sudoki");
                 temp.push(int);
                 console.log(int);
             }
@@ -145,5 +145,7 @@ function solveTheSudoku() {
         }
         return a;
     }
+
+
 }
 function array_intersect() {let a,c,d,e,f,g=[],h={},i;i=arguments.length-1;d=arguments[0].length;c=0;for(a=0;a<=i;a++){e=arguments[a].length;if(e<d){c=a;d=e}}for(a=0;a<=i;a++){e=a===c?0:a||c;f=arguments[e].length;for(let j=0;j<f;j++){let k=arguments[e][j];if(h[k]===a-1){if(a===i){g.push(k);h[k]=0}else{h[k]=a}}else if(a===0){h[k]=0}}}return g}
