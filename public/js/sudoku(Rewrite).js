@@ -1,3 +1,4 @@
+"use strict";
 function solveTheSudoku() {
     let inputs = document.getElementsByClassName("sudoku-in");
 
@@ -9,6 +10,7 @@ function solveTheSudoku() {
     }).join("");
 
     let s = new Sudoku(vals);
+    if (!s.rcnValid()) alert("not a valid sudoki fam");
 }
 
 function Sudoku(vals){
@@ -79,7 +81,8 @@ function isNineValid (x) {
     let first = x.shift();
     if (x.length === 0) return true;
     for (let i = 0; i < x.length; i++)
-        if (x[i] === first && x[i] !== ".") return false;
+        if (x[i] === first && x[i] !== ".")
+            return false;
     return isNineValid(x);
 }
 
@@ -95,7 +98,8 @@ Sudoku.prototype.rcnValid = function () {
 };
 
 function boxLookup(x, y) {
-    x+=1;y+=1;
+    x+=1;
+    y+=1;
     if (x <= 3 && y <= 3) return 0;
     else if (x <= 3 && y <= 6) return 1;
     else if (x <= 3 && y <= 9) return 2;
@@ -127,10 +131,13 @@ Sudoku.prototype.rcnToConstraints = function rcnToConstraints() {
             let x = Math.floor(i / 9);
             let y = i % 9;
             let z = boxLookup(x, y);
-            let int = array_intersect(this.constraintsR[x], this.constraintsC[y], this.constraintsN[z]);
+            let int = array_intersect(this.constraintsR[x],
+                                      this.constraintsC[y],
+                                      this.constraintsN[z]);
             if (int.length === 0) {
-                if (this.backtrackPoint.length === 0) alert("not a valid sudoki");
-                else this.backtrackNow = true;
+                if (this.backtrackPoint.length === 0)
+                    alert("not a valid sudoki");
+                else this.needBacktrack = true;
             }
             temp.push(int);
             console.log(int);
@@ -149,7 +156,7 @@ function constraintsOfABlock(blockOfNine) {
     return a;
 }
 
-Sudoku.prototype.updateConstraints = function updateConstraints(indice, value) {
+Sudoku.prototype.updateConstraints = function (indice, value) {
     this.constraints = [];
     let r = Math.floor(indice / 9);
     let c = indice % 9;
@@ -159,11 +166,10 @@ Sudoku.prototype.updateConstraints = function updateConstraints(indice, value) {
     let indC = this.constraintsC[c].indexOf(value);
     if (indC > -1) this.constraintsC[c].splice(indC, 1);
     let indN = this.constraintsN[n].indexOf(value);
-    if (indN > -1) this.constraintsN[n
-        ].splice(indN, 1);
+    if (indN > -1) this.constraintsN[n].splice(indN, 1);
     this.rcnToConstraints();
     console.log(this.constraints);
-}
+};
 
 Sudoku.prototype.findLargestConstrainment = function () {
     let currIndice = 0;
