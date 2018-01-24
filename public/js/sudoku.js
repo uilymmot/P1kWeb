@@ -17,6 +17,8 @@ function solveTheSudoku() {
     let constraintsC = [];
     let constraintsN = [];
     let constraints = [];
+    let backtrackpoint = [];
+    let backtrackNow = false;
     generateListOfConstraints();
 
     if (!rcnValid()) alert("Not a valid sudoki!");
@@ -97,7 +99,10 @@ function solveTheSudoku() {
                 let y = i % 9;
                 let z = boxLookup(x, y);
                 let int = array_intersect(constraintsR[x], constraintsC[y], constraintsN[z]);
-                if (int.length === 0) alert("not a valid sudoki");
+                if (int.length === 0) {
+                    if (backtrackpoint.length === 0) alert("not a valid sudoki");
+                    else backtrackNow = true;
+                }
                 temp.push(int);
                 console.log(int);
             }
@@ -152,7 +157,18 @@ function solveTheSudoku() {
         return currIndice;
     }
     function updateSudoku() {
+        let consIndice = findLargestConstrainment();
+        let poss = constraints[consIndice];
+        if (poss.length === 1) {
+            updateConstraints(consIndice, poss[0]);
+            vals[consIndice] = poss[0];
+            backtrackpoint = constraints;
+        }
+        else {
+            updateConstraints(consIndice, poss[0]);
 
+        }
+        document.getElementById("solved-sud-string").value = vals;
     }
 
 }
