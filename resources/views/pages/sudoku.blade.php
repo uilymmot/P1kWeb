@@ -12,8 +12,18 @@
         @while ($colCount < 9)
             <div class="sudoku-row">
                 @while ($rowCount < 9)
-                    <input title="sud-row" type="number" name="sudoku-inputs" class="sudoku-in" value="." id="txt" maxlength="1" pattern="\d*" max="9" min="1"
-                           oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                    <input title="sud-row"
+                           type="number"
+                           name="sudoku-inputs"
+                           class="sudoku-in"
+                           value="."
+                           id="txt"
+                           maxlength="1"
+                           pattern="\d*"
+                           max="9"
+                           min="1"
+                           oninput="if (this.value.length > this.maxLength)
+                               this.value = this.value.slice(0, this.maxLength);" />
                     <?php $rowCount += 1; ?>
                 @endwhile
             </div>

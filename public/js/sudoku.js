@@ -16,7 +16,8 @@ function solveTheSudoku() {
     let constraintsR = [];
     let constraintsC = [];
     let constraintsN = [];
-    let constraints = generateListOfConstraints();
+    let constraints = [];
+    generateListOfConstraints();
 
     if (!rcnValid()) alert("Not a valid sudoki!");
 
@@ -108,19 +109,12 @@ function solveTheSudoku() {
         let x = Math.floor(indice / 9);
         let y = indice % 9;
         let z = boxLookup(x,y);
-
         let indR = constraintsR[x].indexOf(value);
-        if (indR > -1) {
-            constraintsR[x].splice(indR, 1);
-        }
+        if (indR > -1) constraintsR[x].splice(indR, 1);
         let indC = constraintsC[y].indexOf(value);
-        if (indC > -1) {
-            constraintsC[y].splice(indC, 1);
-        }
+        if (indC > -1) constraintsC[y].splice(indC, 1);
         let indN = constraintsN[z].indexOf(value);
-        if (indN > -1) {
-            constraintsN[z].splice(indN, 1);
-        }
+        if (indN > -1) constraintsN[z].splice(indN, 1);
         rcnToConstraints();
         console.log(constraints);
     }
@@ -145,7 +139,17 @@ function solveTheSudoku() {
         }
         return a;
     }
-
+    function findLargestConstrainment() {
+        let currIndice = 0;
+        let currIndiceConstraints = 9;
+        for (let i = 0; i < 81; i++) {
+            if (constraints[i].length < currIndiceConstraints && constraints[i].length !== 0) {
+                currIndice = i;
+                currIndiceConstraints = constraints[i].length;
+            }
+        }
+        return currIndice;
+    }
 
 }
 function array_intersect() {let a,c,d,e,f,g=[],h={},i;i=arguments.length-1;d=arguments[0].length;c=0;for(a=0;a<=i;a++){e=arguments[a].length;if(e<d){c=a;d=e}}for(a=0;a<=i;a++){e=a===c?0:a||c;f=arguments[e].length;for(let j=0;j<f;j++){let k=arguments[e][j];if(h[k]===a-1){if(a===i){g.push(k);h[k]=0}else{h[k]=a}}else if(a===0){h[k]=0}}}return g}
