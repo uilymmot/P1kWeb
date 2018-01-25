@@ -1,4 +1,3 @@
-"use strict";
 function solveTheSudoku() {
     let inputs = document.getElementsByClassName("sudoku-in");
 
@@ -11,14 +10,21 @@ function solveTheSudoku() {
 
     document.getElementById("sudoku-string").value = vals;
 
-    let s = new Sudoku(vals);
-    if (!s.rcnValid()) alert("not a valid sudoki fam");
+    let s = new Sudoku(vals.split(""));
+    if (!s.rcnValid()) {
+        alert("not a valid sudoki fam");
+    }
+
+    for (let i = 0; i < 81; i++) {
+        s.solve();
+        alert(s.val);
+    }
 }
 
 function Sudoku(vals){
     this.constraints = [];
     this.backtrackPoint = [];
-    this.backtrackVals = this.val;
+    this.backtrackVals = [this.val];
     this.needBacktrack = false;
     this.constraintsR = [];
     this.constraintsC = [];
@@ -32,7 +38,6 @@ function Sudoku(vals){
     this.generateCols();
     this.generateNines();
     this.generateConstraints();
-    this.backtrackPoint = this.constraints;
 }
 Sudoku.prototype.generateRows = function () {
     let re = [];
@@ -126,24 +131,25 @@ Sudoku.prototype.generateConstraints = function () {
 Sudoku.prototype.rcnToConstraints = function rcnToConstraints() {
     let temp = [];
     for (let i = 0; i < 81; i++) {
-        if (this.val[i] !== ".") {
-            temp.push([]);
-            console.log("Nothing");
-        }
-        else {
+        if (this.val[i] === ".") {
             let x = Math.floor(i / 9);
             let y = i % 9;
             let z = boxLookup(x, y);
             let int = array_intersect(this.constraintsR[x],
-                                      this.constraintsC[y],
-                                      this.constraintsN[z]);
+                this.constraintsC[y],
+                this.constraintsN[z]);
             if (int.length === 0) {
-                if (this.backtrackPoint.length === 0)
+                if (this.backtrackPoint.length === 0) {
                     alert("not a valid sudoki");
+                }
                 else this.needBacktrack = true;
             }
             temp.push(int);
             console.log(int);
+        }
+        else {
+            temp.push([]);
+            console.log(temp[temp.length - 1]);
         }
     }
     this.constraints = temp;
@@ -186,30 +192,29 @@ Sudoku.prototype.findLargestConstrainment = function () {
     return currIndice;
 };
 
-Sudoku.prototype.solveOnce = function () {
+Sudoku.prototype.solve = function () {
     if (this.needBacktrack) {
         this.needBacktrack = false;
-        this.constraints = this.backtrackPoint;
-        this.backtrackPoint = [];
-        this.val = this.backtrackVals;
+        this.constraints = this.backtrackPoint[this.backtrackPoint.length-1];
+        this.backtrackPoint.shift();
+        this.val = this.backtrackVals[this.backtrackVals.length-1];
+        this.backtrackVals.shift();
     }
 
-    let intToRep = this.findLargestConstrainment();
-    let rep = this.constraints[intToRep];
-    let valToRep = rep[0];
-    if (rep.length === 1) {
-        this.updateConstraints(intToRep, valToRep);
-        this.val[intToRep] = valToRep;
-    }
-    else if (this.backtrackPoint.length === 0) {
-        this.updateConstraints(intToRep, valToRep);
-        this.backtrackVals = this.val;
-        this.backtrackPoint = this.constraints;
-        rep.shift();
-        this.backtrackPoint[intToRep] = rep;
+    let ind = this.findLargestConstrainment();
+    let iArr = this.constraints[ind];
+    let va = iArr[0];
+    if (iArr.length === 1) {
+        this.val[ind] = va;
+        this.updateConstraints(ind, va);
     }
     else {
-
+        this.updateConstraints(ind, va);
+        this.backtrackVals.push(this.val);
+        this.val[ind] = va;
+        this.backtrackPoint.push(this.constraints);
+        iArr.shift();
+        this.backtrackPoint[this.backtrackPoint.length-1][ind] = iArr;
     }
 };
 
