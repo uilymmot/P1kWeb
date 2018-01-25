@@ -15,9 +15,9 @@ function solveTheSudoku() {
         alert("not a valid sudoki fam");
     }
 
-    for (let i = 0; i < 81; i++) {
+    while(!s.complete) {
         s.solve();
-        alert(s.val);
+        document.getElementById("solved-sudoku-string").value = s.val;
     }
 }
 
@@ -33,6 +33,7 @@ function Sudoku(vals){
     this.cols = [];
     this.nines = [];
     this.val = vals;
+    this.complete = false;
 
     this.generateRows();
     this.generateCols();
@@ -136,11 +137,10 @@ Sudoku.prototype.rcnToConstraints = function rcnToConstraints() {
             let y = i % 9;
             let z = boxLookup(x, y);
             let int = array_intersect(this.constraintsR[x],
-                this.constraintsC[y],
-                this.constraintsN[z]);
+                                      this.constraintsC[y],
+                                      this.constraintsN[z]);
             if (int.length === 0) {
                 if (this.backtrackPoint.length === 0) {
-                    alert("not a valid sudoki");
                 }
                 else this.needBacktrack = true;
             }
@@ -181,8 +181,8 @@ Sudoku.prototype.updateConstraints = function (indice, value) {
 };
 
 Sudoku.prototype.findLargestConstrainment = function () {
-    let currIndice = 0;
-    let currIndiceConstraints = 9;
+    let currIndice = -1;
+    let currIndiceConstraints = 10;
     for (let i = 0; i < 81; i++)
         if (this.constraints[i].length < currIndiceConstraints
             && this.constraints[i].length !== 0) {
@@ -200,21 +200,31 @@ Sudoku.prototype.solve = function () {
         this.val = this.backtrackVals[this.backtrackVals.length-1];
         this.backtrackVals.shift();
     }
-
-    let ind = this.findLargestConstrainment();
-    let iArr = this.constraints[ind];
-    let va = iArr[0];
-    if (iArr.length === 1) {
-        this.val[ind] = va;
-        this.updateConstraints(ind, va);
-    }
     else {
-        this.updateConstraints(ind, va);
-        this.backtrackVals.push(this.val);
-        this.val[ind] = va;
-        this.backtrackPoint.push(this.constraints);
-        iArr.shift();
-        this.backtrackPoint[this.backtrackPoint.length-1][ind] = iArr;
+        let ind = this.findLargestConstrainment();
+        if (ind === -1) {
+            this.complete = true;
+        }
+
+        if (!this.complete) {
+            let iArr = this.constraints[ind];
+            let va = iArr[0];
+
+            if (iArr.length === 1) {
+                this.val[ind] = va;
+                this.updateConstraints(ind, va);
+            }
+            else {
+                this.val[ind] = va;
+                this.updateConstraints(ind, va);
+                this.backtrackVals.push(this.val);
+                this.backtrackPoint.push(this.constraints);
+                iArr.shift();
+                this.backtrackPoint[this.backtrackPoint.length - 1][ind] = iArr;
+                this.constraints[ind] = [];
+
+            }
+        }
     }
 };
 
