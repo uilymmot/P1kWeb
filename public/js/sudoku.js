@@ -1,3 +1,4 @@
+"use strict";
 function solveTheSudoku() {
     let inputs = document.getElementsByClassName("sudoku-in");
 
@@ -10,171 +11,206 @@ function solveTheSudoku() {
 
     document.getElementById("sudoku-string").value = vals;
 
-    let sudokuRows = generateRows([]);
-    let sudokuCols = generateCols([]);
-    let sudokuNines = generateNines([]);
-    let constraintsR = [];
-    let constraintsC = [];
-    let constraintsN = [];
-    let constraints = [];
-    let backtrackpoint = [];
-    let backtrackNow = false;
-    generateListOfConstraints();
-    console.log(findLargestConstrainment());
+    let s = new Sudoku(vals);
+    if (!s.rcnValid()) alert("not a valid sudoki fam");
+}
 
-    if (!rcnValid()) alert("Not a valid sudoki!");
+function Sudoku(vals){
+    this.constraints = [];
+    this.backtrackPoint = [];
+    this.backtrackVals = this.val;
+    this.needBacktrack = false;
+    this.constraintsR = [];
+    this.constraintsC = [];
+    this.constraintsN = [];
+    this.rows = [];
+    this.cols = [];
+    this.nines = [];
+    this.val = vals;
 
-    function generateRows (re) {
-        for (let i = 0; i < 9; i++) {
-            let tempRow = [];
-            for (let j = 0; j < 9; j++)
-                tempRow.push(vals[(i*9) + j]);
-            re.push(tempRow);
+    this.generateRows();
+    this.generateCols();
+    this.generateNines();
+    this.generateConstraints();
+    this.backtrackPoint = this.constraints;
+}
+Sudoku.prototype.generateRows = function () {
+    let re = [];
+    for (let i = 0; i < 9; i++) {
+        let tempRow = [];
+        for (let j = 0; j < 9; j++)
+            tempRow.push(this.val[(i*9) + j]);
+        re.push(tempRow);
+    }
+    this.rows = re;
+};
+
+//Must be called after generateRows is called
+Sudoku.prototype.generateCols = function() {
+    let ce = [];
+    for (let i = 0; i < 9; i++) {
+        let tempCol = [];
+        for (let j = 0; j < 9; j++) {
+            let t = this.rows[j];
+            tempCol.push(t[i]);
         }
-        return re;
+        ce.push(tempCol);
     }
-    function generateCols (ce) {
-        for (let i = 0; i < 9; i++) {
-            let tempCol = [];
-            for (let j = 0; j < 9; j++) {
-                let t = sudokuRows[j];
-                tempCol.push(t[i]);
-            }
-            ce.push(tempCol);
-        }
-        return ce;
+    this.cols = ce;
+};
+
+Sudoku.prototype.generateNines = function () {
+  let ne = [];
+    let splitter = 0;
+    for(let i = 0; i < 9; i++) {
+        let tempNine = [];
+        tempNine.push(this.val[splitter]);
+        tempNine.push(this.val[splitter+1]);
+        tempNine.push(this.val[splitter+2]);
+        tempNine.push(this.val[splitter+9]);
+        tempNine.push(this.val[splitter+10]);
+        tempNine.push(this.val[splitter+11]);
+        tempNine.push(this.val[splitter+18]);
+        tempNine.push(this.val[splitter+19]);
+        tempNine.push(this.val[splitter+20]);
+        if (((i+1) % 3) === 0) splitter += 21;
+        else splitter += 3;
+        ne.push(tempNine);
     }
-    function generateNines (ne){
-        let splitter = 0;
-        for(let i = 0; i < 9; i++) {
-            let tempNine = [];
-            tempNine.push(vals[splitter]);
-            tempNine.push(vals[splitter+1]);
-            tempNine.push(vals[splitter+2]);
-            tempNine.push(vals[splitter+9]);
-            tempNine.push(vals[splitter+10]);
-            tempNine.push(vals[splitter+11]);
-            tempNine.push(vals[splitter+18]);
-            tempNine.push(vals[splitter+19]);
-            tempNine.push(vals[splitter+20]);
-            if (((i+1) % 3) === 0) splitter += 21;
-            else splitter += 3;
-            ne.push(tempNine);
-        }
-        return ne;
+    this.nines = ne;
+};
+
+function isNineValid (x) {
+    let first = x.shift();
+    if (x.length === 0) return true;
+    for (let i = 0; i < x.length; i++)
+        if (x[i] === first && x[i] !== ".")
+            return false;
+    return isNineValid(x);
+}
+
+Sudoku.prototype.rcnValid = function () {
+    let r = jQuery.extend(true, {}, this.rows);
+    let c = jQuery.extend(true, {}, this.cols);
+    let n = jQuery.extend(true, {}, this.nines);
+    for (let i = 0; i < 9; i++)
+        if (!isNineValid(r[i])
+            || !isNineValid(c[i])
+            || !isNineValid(n[i])) return false;
+    return true;
+};
+
+function boxLookup(x, y) {
+    x+=1;
+    y+=1;
+    if (x <= 3 && y <= 3) return 0;
+    else if (x <= 3 && y <= 6) return 1;
+    else if (x <= 3 && y <= 9) return 2;
+    else if (x <= 6 && y <= 3) return 3;
+    else if (x <= 6 && y <= 6) return 4;
+    else if (x <= 6 && y <= 9) return 5;
+    else if (x <= 9 && y <= 3) return 6;
+    else if (x <= 9 && y <= 6) return 7;
+    else if (x <= 9 && y <= 9) return 8;
+}
+
+Sudoku.prototype.generateConstraints = function () {
+    for (let i = 0; i < 9; i++) {
+        this.constraintsR.push(constraintsOfABlock(this.rows[i]));
+        this.constraintsC.push(constraintsOfABlock(this.cols[i]));
+        this.constraintsN.push(constraintsOfABlock(this.nines[i]));
     }
-    function isNineValid (x) {
-        let first = x.shift();
-        if (x.length === 0) return true;
-        for (let i = 0; i < x.length; i++)
-            if (x[i] === first && x[i] !== ".") return false;
-        return isNineValid(x);
-    }
-    function rcnValid() {
-        let r = jQuery.extend(true, {}, sudokuRows);
-        let c = jQuery.extend(true, {}, sudokuCols);
-        let n = jQuery.extend(true, {}, sudokuNines);
-        for (let i = 0; i < 9; i++)
-            if (!isNineValid(r[i])
-                || !isNineValid(c[i])
-                || !isNineValid(n[i])) return false;
-        return true;
-    }
-    function generateListOfConstraints() {
-        for (let i = 0; i < 9; i++) {
-            constraintsR.push(constraintsOfABlock(sudokuRows[i]));
-            constraintsC.push(constraintsOfABlock(sudokuCols[i]));
-            constraintsN.push(constraintsOfABlock(sudokuNines[i]));
-        }
-        rcnToConstraints();
-    }
-    function rcnToConstraints() {
-        let temp = [];
-        for (let i = 0; i < 81; i++) {
-            if (vals[i] !== ".") {
-                temp.push([]);
-                console.log("Nothing");
-            }
-            else {
-                let x = Math.floor(i / 9);
-                let y = i % 9;
-                let z = boxLookup(x, y);
-                let int = array_intersect(constraintsR[x], constraintsC[y], constraintsN[z]);
-                if (int.length === 0) {
-                    if (backtrackpoint.length === 0) alert("not a valid sudoki");
-                    else backtrackNow = true;
-                }
-                temp.push(int);
-                console.log(int);
-            }
-        }
-        constraints = temp;
-    }
-    function updateConstraints(indice, value) {
-        constraints = [];
-        let r = Math.floor(indice / 9);
-        let c = indice % 9;
-        let n = boxLookup(r,c);
-        let indR = constraintsR[r].indexOf(value);
-        if (indR > -1) constraintsR[r].splice(indR, 1);
-        let indC = constraintsC[c].indexOf(value);
-        if (indC > -1) constraintsC[c].splice(indC, 1);
-        let indN = constraintsN[n].indexOf(value);
-        if (indN > -1) constraintsN[n
-            ].splice(indN, 1);
-        rcnToConstraints();
-        console.log(constraints);
-    }
-    function boxLookup(x, y) {
-        x+=1;y+=1;
-        if (x <= 3 && y <= 3) return 0;
-        else if (x <= 3 && y <= 6) return 1;
-        else if (x <= 3 && y <= 9) return 2;
-        else if (x <= 6 && y <= 3) return 3;
-        else if (x <= 6 && y <= 6) return 4;
-        else if (x <= 6 && y <= 9) return 5;
-        else if (x <= 9 && y <= 3) return 6;
-        else if (x <= 9 && y <= 6) return 7;
-        else if (x <= 9 && y <= 9) return 8;
-    }
-    function constraintsOfABlock(blockOfNine) {
-        let a = [1,2,3,4,5,6,7,8,9];
-        for (let i = 0; i < blockOfNine.length; i++) {
-            if (blockOfNine[i] === ".") continue;
-            let index = a.indexOf(+blockOfNine[i]);
-            if (index !== -1) a.splice(index,1);
-        }
-        return a;
-    }
-    function findLargestConstrainment() {
-        let currIndice = 0;
-        let currIndiceConstraints = 9;
-        for (let i = 0; i < 81; i++)
-            if (constraints[i].length < currIndiceConstraints
-                && constraints[i].length !== 0) {
-            currIndice = i;
-            currIndiceConstraints = constraints[i].length;
-        }
-        return currIndice;
-    }
-    function updateSudoku() {
-        let consIndice = findLargestConstrainment();
-        let poss = constraints[consIndice];
-        if (poss.length === 1) {
-            updateConstraints(consIndice, poss[0]);
-            vals[consIndice] = poss[0];
-            backtrackpoint = constraints;
+    this.rcnToConstraints();
+};
+
+Sudoku.prototype.rcnToConstraints = function rcnToConstraints() {
+    let temp = [];
+    for (let i = 0; i < 81; i++) {
+        if (this.val[i] !== ".") {
+            temp.push([]);
+            console.log("Nothing");
         }
         else {
-            let backTrackArr = poss;
-            updateConstraints(consIndice, poss[0]);
-            poss.shift();
-            backtrackpoint = constraints;
-            backtrackpoint[consIndice] = poss;
+            let x = Math.floor(i / 9);
+            let y = i % 9;
+            let z = boxLookup(x, y);
+            let int = array_intersect(this.constraintsR[x],
+                                      this.constraintsC[y],
+                                      this.constraintsN[z]);
+            if (int.length === 0) {
+                if (this.backtrackPoint.length === 0)
+                    alert("not a valid sudoki");
+                else this.needBacktrack = true;
+            }
+            temp.push(int);
+            console.log(int);
         }
+    }
+    this.constraints = temp;
+};
 
-        document.getElementById("solved-sud-string").value = vals;
+function constraintsOfABlock(blockOfNine) {
+    let a = [1,2,3,4,5,6,7,8,9];
+    for (let i = 0; i < blockOfNine.length; i++) {
+        if (blockOfNine[i] === ".") continue;
+        let index = a.indexOf(+blockOfNine[i]);
+        if (index !== -1) a.splice(index,1);
+    }
+    return a;
+}
+
+Sudoku.prototype.updateConstraints = function (indice, value) {
+    this.constraints = [];
+    let r = Math.floor(indice / 9);
+    let c = indice % 9;
+    let n = boxLookup(r,c);
+    let indR = this.constraintsR[r].indexOf(value);
+    if (indR > -1) this.constraintsR[r].splice(indR, 1);
+    let indC = this.constraintsC[c].indexOf(value);
+    if (indC > -1) this.constraintsC[c].splice(indC, 1);
+    let indN = this.constraintsN[n].indexOf(value);
+    if (indN > -1) this.constraintsN[n].splice(indN, 1);
+    this.rcnToConstraints();
+    console.log(this.constraints);
+};
+
+Sudoku.prototype.findLargestConstrainment = function () {
+    let currIndice = 0;
+    let currIndiceConstraints = 9;
+    for (let i = 0; i < 81; i++)
+        if (this.constraints[i].length < currIndiceConstraints
+            && this.constraints[i].length !== 0) {
+            currIndice = i;
+            currIndiceConstraints = this.constraints[i].length;
+        }
+    return currIndice;
+};
+
+Sudoku.prototype.solveOnce = function () {
+    if (this.needBacktrack) {
+        this.needBacktrack = false;
+        this.constraints = this.backtrackPoint;
+        this.backtrackPoint = [];
+        this.val = this.backtrackVals;
     }
 
-}
+    let intToRep = this.findLargestConstrainment();
+    let rep = this.constraints[intToRep];
+    let valToRep = rep[0];
+    if (rep.length === 1) {
+        this.updateConstraints(intToRep, valToRep);
+        this.val[intToRep] = valToRep;
+    }
+    else if (this.backtrackPoint.length === 0) {
+        this.updateConstraints(intToRep, valToRep);
+        this.backtrackVals = this.val;
+        this.backtrackPoint = this.constraints;
+        rep.shift();
+        this.backtrackPoint[intToRep] = rep;
+    }
+    else {
+
+    }
+};
+
 function array_intersect() {let a,c,d,e,f,g=[],h={},i;i=arguments.length-1;d=arguments[0].length;c=0;for(a=0;a<=i;a++){e=arguments[a].length;if(e<d){c=a;d=e}}for(a=0;a<=i;a++){e=a===c?0:a||c;f=arguments[e].length;for(let j=0;j<f;j++){let k=arguments[e][j];if(h[k]===a-1){if(a===i){g.push(k);h[k]=0}else{h[k]=a}}else if(a===0){h[k]=0}}}return g}
