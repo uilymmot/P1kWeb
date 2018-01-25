@@ -17,8 +17,8 @@ function solveTheSudoku() {
 
     while(!s.complete) {
         s.solve();
-        document.getElementById("solved-sudoku-string").value = s.val;
     }
+    document.getElementById("solved-sudoku-string").value = s.val;
 }
 
 function Sudoku(vals){
