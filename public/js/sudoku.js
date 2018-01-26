@@ -234,9 +234,7 @@ Sudoku.prototype.solve = function () {
                 console.log("backtrack points: " + this.backtrackPoint.length);
             }
         }
-        else {
-            this.needBacktrack = true;
-        }
+        else this.needBacktrack = true;
     }
 };
 
