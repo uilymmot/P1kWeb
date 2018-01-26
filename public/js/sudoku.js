@@ -19,12 +19,13 @@ function solveTheSudoku() {
         s.solve();
     }
     document.getElementById("solved-sudoku-string").value = s.val;
+    console.log(s.constraints);
 }
 
 function Sudoku(vals){
     this.constraints = [];
     this.backtrackPoint = [];
-    this.backtrackVals = [this.val];
+    this.backtrackVals = [];
     this.needBacktrack = false;
     this.constraintsR = [];
     this.constraintsC = [];
@@ -141,25 +142,24 @@ Sudoku.prototype.rcnToConstraints = function rcnToConstraints() {
                                       this.constraintsN[z]);
             if (int.length === 0) {
                 if (this.backtrackPoint.length === 0) {
+
                 }
                 else this.needBacktrack = true;
             }
             temp.push(int);
-            console.log(int);
         }
         else {
             temp.push([]);
-            console.log(temp[temp.length - 1]);
         }
     }
     this.constraints = temp;
 };
 
 function constraintsOfABlock(blockOfNine) {
-    let a = [1,2,3,4,5,6,7,8,9];
+    let a = ["1","2","3","4","5","6","7","8","9"];
     for (let i = 0; i < blockOfNine.length; i++) {
         if (blockOfNine[i] === ".") continue;
-        let index = a.indexOf(+blockOfNine[i]);
+        let index = a.indexOf(blockOfNine[i]);
         if (index !== -1) a.splice(index,1);
     }
     return a;
@@ -177,7 +177,6 @@ Sudoku.prototype.updateConstraints = function (indice, value) {
     let indN = this.constraintsN[n].indexOf(value);
     if (indN > -1) this.constraintsN[n].splice(indN, 1);
     this.rcnToConstraints();
-    console.log(this.constraints);
 };
 
 Sudoku.prototype.findLargestConstrainment = function () {
@@ -195,35 +194,48 @@ Sudoku.prototype.findLargestConstrainment = function () {
 Sudoku.prototype.solve = function () {
     if (this.needBacktrack) {
         this.needBacktrack = false;
-        this.constraints = this.backtrackPoint[this.backtrackPoint.length-1];
-        this.backtrackPoint.shift();
-        this.val = this.backtrackVals[this.backtrackVals.length-1];
-        this.backtrackVals.shift();
+        this.constraints = this.backtrackPoint[this.backtrackPoint.length - 1];
+        let ind = this.findLargestConstrainment();
+        this.val = this.backtrackVals[this.backtrackVals.length - 1];
+        console.log("Backtracked at this point with " + this.val);
+        if (this.constraints[ind].length === 1) {
+            this.backtrackPoint.shift();
+            this.backtrackVals.shift();
+        }
     }
     else {
         let ind = this.findLargestConstrainment();
-        if (ind === -1) {
+        if (ind === -1 && this.backtrackPoint.length === 0) {
             this.complete = true;
         }
+        else if (ind !== -1) {
+            if (!this.complete) {
+                let iArr = this.constraints[ind];
+                let va = iArr[0];
+                if (iArr.length === 1) {
+                    this.val[ind] = va;
+                    this.updateConstraints(ind, va);
+                }
+                else {
+                    let nCons = jQuery.extend(true, [], this.constraints);
+                    let nVals = jQuery.extend(true, [], this.val);
 
-        if (!this.complete) {
-            let iArr = this.constraints[ind];
-            let va = iArr[0];
+                    this.backtrackPoint.push(nCons);
+                    this.backtrackVals.push(nVals);
 
-            if (iArr.length === 1) {
-                this.val[ind] = va;
-                this.updateConstraints(ind, va);
+                    this.val[ind] = va;
+                    this.updateConstraints(ind, va);
+
+                    iArr.shift();
+                    this.backtrackPoint[this.backtrackPoint.length - 1][ind] = iArr;
+                    this.constraints[ind] = [];
+                }
+                console.log("At indice: " + ind + " With remaining array: [" + iArr + "], we added in " + va + " [" + this.val + "]");
+                console.log("backtrack points: " + this.backtrackPoint.length);
             }
-            else {
-                this.val[ind] = va;
-                this.updateConstraints(ind, va);
-                this.backtrackVals.push(this.val);
-                this.backtrackPoint.push(this.constraints);
-                iArr.shift();
-                this.backtrackPoint[this.backtrackPoint.length - 1][ind] = iArr;
-                this.constraints[ind] = [];
-
-            }
+        }
+        else {
+            this.needBacktrack = true;
         }
     }
 };
