@@ -140,9 +140,7 @@ Sudoku.prototype.rcnToConstraints = function rcnToConstraints() {
             let int = array_intersect(this.constraintsR[x],
                                       this.constraintsC[y],
                                       this.constraintsN[z]);
-            if (int.length === 0 && this.backtrackPoint.length === 0) {
-                this.needBacktrack = true;
-            }
+            if (int.length === 0 && this.backtrackPoint.length === 0) this.needBacktrack = true;
             temp.push(int);
         }
         else temp.push([]);
