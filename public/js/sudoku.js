@@ -205,9 +205,7 @@ Sudoku.prototype.solve = function () {
     }
     else {
         let ind = this.findLargestConstrainment();
-        if (ind === -1 && this.backtrackPoint.length === 0) {
-            this.complete = true;
-        }
+        if (ind === -1 && this.backtrackPoint.length === 0) this.complete = true;
         else if (ind !== -1) {
             if (!this.complete) {
                 let iArr = this.constraints[ind];
