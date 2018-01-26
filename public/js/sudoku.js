@@ -210,13 +210,10 @@ Sudoku.prototype.solve = function () {
                 else {
                     let nCons = jQuery.extend(true, [], this.constraints);
                     let nVals = jQuery.extend(true, [], this.val);
-
                     this.backtrackPoint.push(nCons);
                     this.backtrackVals.push(nVals);
-
                     this.val[ind] = va;
                     this.updateConstraints(ind, va);
-
                     iArr.shift();
                     this.backtrackPoint[this.backtrackPoint.length - 1][ind] = iArr;
                     this.constraints[ind] = [];
