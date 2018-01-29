@@ -175,6 +175,7 @@ function constraintsOfABlock(blockOfNine) {
     return a;
 }
 
+//TODO: Make this code actually work because it would be far more efficient to do it this way because we currently have to generate every constraint at every iteration which is god awful.
 Sudoku.prototype.updateConstraints = function (indice, value) {
     this.constraints = [];
     let r = Math.floor(indice / 9);
@@ -187,19 +188,6 @@ Sudoku.prototype.updateConstraints = function (indice, value) {
     let indN = this.constraintsN[n].indexOf(value);
     if (indN > -1) this.constraintsN[n].splice(indN, 1);
     this.rcnToConstraints();
-};
-
-Sudoku.prototype.checkConstraints = function () {
-    for (let i = 0; i < 81; i++) {
-        if (this.val[i] === ".") {
-            if (this.constraints[i] === 0 && this.backtrackPoint.length > 0) {
-                this.needBacktrack = true;
-            }
-        }
-        else {
-            this.constraints[i] = [];
-        }
-    }
 };
 
 Sudoku.prototype.findLargestConstrainment = function () {
