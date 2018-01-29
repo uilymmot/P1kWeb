@@ -131,9 +131,9 @@ Sudoku.prototype.generateConstraints = function () {
 };
 
 Sudoku.prototype.upConstraints = function () {
-    this.rows = this.generateRows();
-    this.cols = this.generateCols();
-    this.nines = this.generateNines();
+    this.generateRows();
+    this.generateCols();
+    this.generateNines();
     this.constraintsR = [];
     this.constraintsC = [];
     this.constraintsN = [];
@@ -231,7 +231,7 @@ Sudoku.prototype.solve = function () {
                 if (iArr.length === 1) {
                     this.val[ind] = va;
                     iArr.shift();
-                    this.updateConstraints(ind, va);
+                    this.upConstraints();
                 }
                 else {
                     let nCons = jQuery.extend(true, [], this.constraints);
@@ -242,7 +242,7 @@ Sudoku.prototype.solve = function () {
                     this.backtrackPoint[this.backtrackPoint.length - 1][ind] = iArr;
 
                     this.val[ind] = va;
-                    this.updateConstraints(ind, va);
+                    this.upConstraints();
                 }
                 console.log("At indice: " + ind + " With remaining array: [" + iArr + "], we added in " + va + " [" + this.val + "]");
                 console.log("backtrack points: " + this.backtrackPoint.length);
