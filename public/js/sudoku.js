@@ -67,7 +67,7 @@ Sudoku.prototype.generateCols = function() {
 };
 
 Sudoku.prototype.generateNines = function () {
-  let ne = [];
+    let ne = [];
     let splitter = 0;
     for(let i = 0; i < 9; i++) {
         let tempNine = [];
@@ -130,22 +130,39 @@ Sudoku.prototype.generateConstraints = function () {
     this.rcnToConstraints();
 };
 
+Sudoku.prototype.upConstraints = function () {
+    this.rows = this.generateRows();
+    this.cols = this.generateCols();
+    this.nines = this.generateNines();
+    this.constraintsR = [];
+    this.constraintsC = [];
+    this.constraintsN = [];
+    this.generateConstraints();
+};
+
 Sudoku.prototype.rcnToConstraints = function rcnToConstraints() {
-    let temp = [];
-    for (let i = 0; i < 81; i++) {
-        if (this.val[i] === ".") {
+    if (this.val.indexOf(".") === -1) {
+        this.complete = true;
+    }
+    else {
+        let temp = [];
+        for (let i = 0; i < 81; i++) {
             let x = Math.floor(i / 9);
             let y = i % 9;
             let z = boxLookup(x, y);
             let int = array_intersect(this.constraintsR[x],
-                                      this.constraintsC[y],
-                                      this.constraintsN[z]);
-            if (int.length === 0 && this.backtrackPoint.length === 0) this.needBacktrack = true;
-            temp.push(int);
+                this.constraintsC[y],
+                this.constraintsN[z]);
+            if (this.val[i] === ".") {
+                if (int.length === 0) this.needBacktrack = true;
+                temp.push(int);
+            }
+            else {
+                temp.push([]);
+            }
         }
-        else temp.push([]);
+        this.constraints = temp;
     }
-    this.constraints = temp;
 };
 
 function constraintsOfABlock(blockOfNine) {
@@ -172,6 +189,19 @@ Sudoku.prototype.updateConstraints = function (indice, value) {
     this.rcnToConstraints();
 };
 
+Sudoku.prototype.checkConstraints = function () {
+    for (let i = 0; i < 81; i++) {
+        if (this.val[i] === ".") {
+            if (this.constraints[i] === 0 && this.backtrackPoint.length > 0) {
+                this.needBacktrack = true;
+            }
+        }
+        else {
+            this.constraints[i] = [];
+        }
+    }
+};
+
 Sudoku.prototype.findLargestConstrainment = function () {
     let currIndice = -1;
     let currIndiceConstraints = 10;
@@ -187,14 +217,9 @@ Sudoku.prototype.findLargestConstrainment = function () {
 Sudoku.prototype.solve = function () {
     if (this.needBacktrack) {
         this.needBacktrack = false;
-        this.constraints = this.backtrackPoint[this.backtrackPoint.length - 1];
-        let ind = this.findLargestConstrainment();
-        this.val = this.backtrackVals[this.backtrackVals.length - 1];
+        this.constraints = this.backtrackPoint.pop();
+        this.val = this.backtrackVals.pop();
         console.log("Backtracked at this point with " + this.val);
-        if (this.constraints[ind].length === 1) {
-            this.backtrackPoint.shift();
-            this.backtrackVals.shift();
-        }
     }
     else {
         let ind = this.findLargestConstrainment();
@@ -205,6 +230,7 @@ Sudoku.prototype.solve = function () {
                 let va = iArr[0];
                 if (iArr.length === 1) {
                     this.val[ind] = va;
+                    iArr.shift();
                     this.updateConstraints(ind, va);
                 }
                 else {
@@ -212,14 +238,15 @@ Sudoku.prototype.solve = function () {
                     let nVals = jQuery.extend(true, [], this.val);
                     this.backtrackPoint.push(nCons);
                     this.backtrackVals.push(nVals);
-                    this.val[ind] = va;
-                    this.updateConstraints(ind, va);
                     iArr.shift();
                     this.backtrackPoint[this.backtrackPoint.length - 1][ind] = iArr;
-                    this.constraints[ind] = [];
+
+                    this.val[ind] = va;
+                    this.updateConstraints(ind, va);
                 }
                 console.log("At indice: " + ind + " With remaining array: [" + iArr + "], we added in " + va + " [" + this.val + "]");
                 console.log("backtrack points: " + this.backtrackPoint.length);
+                console.log(this.constraints);
             }
         }
         else this.needBacktrack = true;
