@@ -211,6 +211,10 @@ Sudoku.prototype.updateConstraints = function (indice, value) {
     this.rcnToConstraints();
 };
 
+Sudoku.prototype.upCons = function (indice, value) {
+
+};
+
 //Find the cell with the greatest number of constraints/least number of possible values
 Sudoku.prototype.findLargestConstrainment = function () {
     let currIndice = -1;
@@ -232,7 +236,9 @@ Sudoku.prototype.solve = function () {
     }
     else {
         let ind = this.findLargestConstrainment();
-        if (ind === -1 && this.backtrackPoint.length === 0) this.complete = true;
+        if (ind === -1 && this.backtrackPoint.length === 0) {
+            this.complete = true;
+        }
         else if (ind !== -1) {
             if (!this.complete) {
                 let iArr = this.constraints[ind];
@@ -249,7 +255,6 @@ Sudoku.prototype.solve = function () {
                     this.backtrackVals.push(nVals);
                     iArr.shift();
                     this.backtrackPoint[this.backtrackPoint.length - 1][ind] = iArr;
-
                     this.val[ind] = va;
                     this.upConstraints();
                 }
