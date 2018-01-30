@@ -1,14 +1,5 @@
 function solveTheSudoku() {
-    let inputs = document.getElementsByClassName("sudoku-in");
-
-    let vals  = [].map.call(inputs, function( input ) {
-        if (input.value.length === 0)
-            return '.';
-        else
-            return input.value;
-    }).join("");
-
-    document.getElementById("sudoku-string").value = vals;
+    let vals = document.getElementById("sudoku-string").value;
 
     let s = new Sudoku(vals.split(""));
     if (!s.rcnValid()) {
@@ -23,6 +14,18 @@ function solveTheSudoku() {
     let t1 = performance.now();
     console.log((t1-t0) + " Milliseconds to solve.");
     alert(t1-t0);
+}
+
+function turnSudokuIntoString () {
+    let inputs = document.getElementsByClassName("sudoku-in");
+
+    let vals  = [].map.call(inputs, function( input ) {
+        if (input.value.length === 0)
+            return '.';
+        else
+            return input.value;
+    }).join("");
+    document.getElementById("sudoku-string").value = vals;
 }
 
 function Sudoku(vals){
@@ -44,6 +47,8 @@ function Sudoku(vals){
     this.generateNines();
     this.generateConstraints();
 }
+
+//Turns a sudoku string into an array of 9 arrays which are rows
 Sudoku.prototype.generateRows = function () {
     let re = [];
     for (let i = 0; i < 9; i++) {
@@ -55,6 +60,7 @@ Sudoku.prototype.generateRows = function () {
     this.rows = re;
 };
 
+//Turns the rows into columns
 //Must be called after generateRows is called
 Sudoku.prototype.generateCols = function() {
     let ce = [];
@@ -69,6 +75,7 @@ Sudoku.prototype.generateCols = function() {
     this.cols = ce;
 };
 
+//Turns the sudoku string into the 3x3 chunks
 Sudoku.prototype.generateNines = function () {
     let ne = [];
     let splitter = 0;
@@ -90,15 +97,18 @@ Sudoku.prototype.generateNines = function () {
     this.nines = ne;
 };
 
+//Checks if any row/column/nine is valid (containts no repeats)
 function isNineValid (x) {
     let first = x.shift();
     if (x.length === 0) return true;
     for (let i = 0; i < x.length; i++)
         if (x[i] === first && x[i] !== ".")
             return false;
+    //Recursively trim to make it O((n^2)/2) instead of O(n^2)
     return isNineValid(x);
 }
 
+//Checks if a sudoku is valid by checking all rows/columns/nines
 Sudoku.prototype.rcnValid = function () {
     let r = jQuery.extend(true, {}, this.rows);
     let c = jQuery.extend(true, {}, this.cols);
@@ -110,6 +120,8 @@ Sudoku.prototype.rcnValid = function () {
     return true;
 };
 
+
+//I cant think of a mathematical way to do this
 function boxLookup(x, y) {
     x+=1;
     y+=1;
@@ -133,6 +145,8 @@ Sudoku.prototype.generateConstraints = function () {
     this.rcnToConstraints();
 };
 
+//Update constraints by recreating them all again....
+//Quite inefficient here
 Sudoku.prototype.upConstraints = function () {
     this.generateRows();
     this.generateCols();
@@ -144,19 +158,20 @@ Sudoku.prototype.upConstraints = function () {
 };
 
 Sudoku.prototype.rcnToConstraints = function rcnToConstraints() {
-    if (this.val.indexOf(".") === -1) {
-        this.complete = true;
-    }
-    else {
+    //If there are any empty spaces to fill in the sudoku string
+    if (this.val.indexOf(".") !== -1) {
         let temp = [];
         for (let i = 0; i < 81; i++) {
             let x = Math.floor(i / 9);
             let y = i % 9;
             let z = boxLookup(x, y);
+            //Find the constraints of any one given cell
             let int = array_intersect(this.constraintsR[x],
                 this.constraintsC[y],
                 this.constraintsN[z]);
+            //If the current space is empty
             if (this.val[i] === ".") {
+                //If empty space has no possible values and so we need to backtrack
                 if (int.length === 0) this.needBacktrack = true;
                 temp.push(int);
             }
@@ -165,6 +180,9 @@ Sudoku.prototype.rcnToConstraints = function rcnToConstraints() {
             }
         }
         this.constraints = temp;
+    }
+    else {
+        this.complete = true;
     }
 };
 
@@ -193,6 +211,7 @@ Sudoku.prototype.updateConstraints = function (indice, value) {
     this.rcnToConstraints();
 };
 
+//Find the cell with the greatest number of constraints/least number of possible values
 Sudoku.prototype.findLargestConstrainment = function () {
     let currIndice = -1;
     let currIndiceConstraints = 10;

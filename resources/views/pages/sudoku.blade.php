@@ -34,6 +34,7 @@
         <input type="text" id="sudoku-string" title="unsolved-sud-string">
         <input type="text" id="solved-sudoku-string" title="solved-sud-string">
         <br/>
+            <button onclick="turnSudokuIntoString()" id="butt">Turn sudoku into string</button>
         <button onclick="solveTheSudoku()" id="butt">Solve!</button>
     </div>
 @endsection
