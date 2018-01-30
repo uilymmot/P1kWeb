@@ -15,11 +15,14 @@ function solveTheSudoku() {
         alert("not a valid sudoki fam");
     }
 
+    let t0 = performance.now();
     while(!s.complete) {
         s.solve();
     }
     document.getElementById("solved-sudoku-string").value = s.val;
-    console.log(s.constraints);
+    let t1 = performance.now();
+    console.log((t1-t0) + " Milliseconds to solve.");
+    alert(t1-t0);
 }
 
 function Sudoku(vals){
@@ -207,7 +210,6 @@ Sudoku.prototype.solve = function () {
         this.needBacktrack = false;
         this.constraints = this.backtrackPoint.pop();
         this.val = this.backtrackVals.pop();
-        console.log("Backtracked at this point with " + this.val);
     }
     else {
         let ind = this.findLargestConstrainment();
@@ -232,9 +234,6 @@ Sudoku.prototype.solve = function () {
                     this.val[ind] = va;
                     this.upConstraints();
                 }
-                console.log("At indice: " + ind + " With remaining array: [" + iArr + "], we added in " + va + " [" + this.val + "]");
-                console.log("backtrack points: " + this.backtrackPoint.length);
-                console.log(this.constraints);
             }
         }
         else this.needBacktrack = true;
