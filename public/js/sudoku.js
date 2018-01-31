@@ -10,15 +10,19 @@ function solveTheSudoku() {
     while(!s.complete) {
         s.solve();
     }
-    document.getElementById("solved-sudoku-string").value = s.val;
     let t1 = performance.now();
+    let out = "";
+    for (let i = 0; i < s.val.length; i++) {
+        out += s.val[i];
+    }
+    document.getElementById("solved-sudoku-string").value = out;
+
     console.log((t1-t0) + " Milliseconds to solve.");
     alert(t1-t0);
 }
 
 function turnSudokuIntoString () {
     let inputs = document.getElementsByClassName("sudoku-in");
-
     let vals  = [].map.call(inputs, function( input ) {
         if (input.value.length === 0)
             return '.';
@@ -120,11 +124,9 @@ Sudoku.prototype.rcnValid = function () {
     return true;
 };
 
-
 //I cant think of a mathematical way to do this
 function boxLookup(x, y) {
-    x+=1;
-    y+=1;
+    x+=1;y+=1;
     if (x <= 3 && y <= 3) return 0;
     else if (x <= 3 && y <= 6) return 1;
     else if (x <= 3 && y <= 9) return 2;
@@ -211,10 +213,6 @@ Sudoku.prototype.updateConstraints = function (indice, value) {
     this.rcnToConstraints();
 };
 
-Sudoku.prototype.upCons = function (indice, value) {
-
-};
-
 //Find the cell with the greatest number of constraints/least number of possible values
 Sudoku.prototype.findLargestConstrainment = function () {
     let currIndice = -1;
@@ -239,7 +237,7 @@ Sudoku.prototype.solve = function () {
         if (ind === -1 && this.backtrackPoint.length === 0) {
             this.complete = true;
         }
-        else if (ind !== -1) {
+       else if (ind !== -1) {
             if (!this.complete) {
                 let iArr = this.constraints[ind];
                 let va = iArr[0];
@@ -260,7 +258,9 @@ Sudoku.prototype.solve = function () {
                 }
             }
         }
-        else this.needBacktrack = true;
+        else {
+            this.needBacktrack = true;
+        }
     }
 };
 
