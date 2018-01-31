@@ -206,8 +206,10 @@ Sudoku.prototype.updateConstraints = function (indice, value) {
     let n = boxLookup(r,c);
     let indR = this.constraintsR[r].indexOf(value);
     if (indR > -1) this.constraintsR[r].splice(indR, 1);
+
     let indC = this.constraintsC[c].indexOf(value);
     if (indC > -1) this.constraintsC[c].splice(indC, 1);
+
     let indN = this.constraintsN[n].indexOf(value);
     if (indN > -1) this.constraintsN[n].splice(indN, 1);
     this.rcnToConstraints();

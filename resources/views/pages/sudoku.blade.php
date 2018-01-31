@@ -36,5 +36,32 @@
         <br/>
             <button onclick="turnSudokuIntoString()" id="butt">Turn sudoku into string</button>
         <button onclick="solveTheSudoku()" id="butt">Solve!</button>
+        <br/>
+        <p>or solve a file of sudokus</p>
+            <input type="file" name="file" id="file">
+
+        <script>
+            document.getElementById('file').onchange = function () {
+
+                let file = this.files[0];
+
+                let reader = new FileReader();
+                reader.onload = function (progressEvent) {
+                    // By lines
+                    let lines = this.result.split('\n');
+                    for (let line = 0; line < lines.length; line++) {
+                        console.log(lines[line]);
+                        let s = new Sudoku(lines[line].split(""));
+                        let t1 = performance.now();
+                        while (!s.complete) {
+                            s.solve();
+                        }
+                        let t2 = performance.now();
+                        console.log(s.val + " solved in " + (t2 - t1));
+                    }
+                };
+                reader.readAsText(file);
+            };
+        </script>
     </div>
 @endsection
