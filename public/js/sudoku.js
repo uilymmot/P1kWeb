@@ -183,6 +183,7 @@ Sudoku.prototype.rcnToConstraints = function rcnToConstraints() {
         }
         this.constraints = temp;
     }
+    //no more empty spots means we're done
     else {
         this.complete = true;
     }

@@ -34,12 +34,13 @@
         <input type="text" id="sudoku-string" title="unsolved-sud-string">
         <input type="text" id="solved-sudoku-string" title="solved-sud-string">
         <br/>
-            <button onclick="turnSudokuIntoString()" id="butt">Turn sudoku into string</button>
+        <button onclick="turnSudokuIntoString()" id="butt">Turn sudoku into string</button>
         <button onclick="solveTheSudoku()" id="butt">Solve!</button>
         <br/>
-        <p>or solve a file of sudokus</p>
+        <div class="content-1">
+            <p>or solve a file of sudokus</p>
             <input type="file" name="file" id="file">
-
+        </div>
         <script>
             document.getElementById('file').onchange = function () {
 
